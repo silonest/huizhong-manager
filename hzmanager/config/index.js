@@ -29,14 +29,14 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/resource/dynamic': {
-        target: 'http://127.0.0.1:7000/hzsupport/',
+        target: 'http://172.17.0.12:8012/hzsupport/',
         changeOrigin: true,
         pathRewrite: {
           '^/resource/dynamic': ''
         }
       },
       '/resource/static': {
-        target: 'http://127.0.0.1:7000/static/',
+        target: 'http://172.17.0.12:8012/static/',
         changeOrigin: true,
         pathRewrite: {
           '^/resource/static': ''

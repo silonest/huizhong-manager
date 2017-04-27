@@ -3,8 +3,8 @@
   <div style="flex:none;height:50px;"></div>
   <div style="flex:1 1 auto;display:-webkit-flex;display:flex;flex-flow:row nowrap;">
     <div class="lightgray" style="flex:none;width:320px;">
-      <div class="ui compact dividing rail" style="top:50px;width:320px;">
-        <div class="controller ui fixed sticky">
+      <div class="ui compact dividing rail" style="width:320px;">
+        <div class="user controller ui fixed sticky" style="margin-top:50px;">
           <user-controller style="width:300px;margin: 14px 10px;"></user-controller>
         </div>
       </div>
@@ -29,7 +29,7 @@ export default {
     'user-container': container
   },
   mounted: function() {
-    $('.controller.ui.sticky').sticky({
+    $('.user.controller.ui.sticky').sticky({
       offset: 50,
       context: '.container'
     });

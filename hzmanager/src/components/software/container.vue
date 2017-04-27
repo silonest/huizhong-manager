@@ -14,7 +14,7 @@
           </div>
         </div>
       </div>
-      <img class="image" style="height: 190px" :src="'/resource/static/' + item.softwareImg" v-else v-on:click="choseSoftware(item)" />
+      <img class="image" style="height: 190px" :src="'/resource/static/' + item.softwareImg" v-else @click="choseSoftware(item)" />
       <div class="content" v-on:click="choseSoftware(item)">
         <div class="header">{{item.note.softwareName}}</div>
         <div class="meta">当前版本:{{item.branch.branchVersion}}</div>
@@ -22,8 +22,8 @@
       </div>
       <div class="extra content">
         <a :href="'/resource/static/' + item.branch.note.branchAddr" download><i class="download icon" data-content="下载"></i></a>
-        <a v-if="item.softwareUseFlag == 0"><i class="play icon" data-content="启用" v-on:click="changeSoftwareStatus(item,'used')"></i></a>
-        <a v-else><i class="pause icon" data-content="停用" v-on:click="changeSoftwareStatus(item,'useless')"></i></a>
+        <a v-if="item.softwareUseFlag == 0"><i class="play icon" data-content="启用" @click="changeSoftwareStatus(item,'used')"></i></a>
+        <a v-else><i class="pause icon" data-content="停用" @click="changeSoftwareStatus(item,'useless')"></i></a>
         <a><i class="remove icon" data-content="删除"></i></a>
       </div>
     </div>
@@ -33,9 +33,9 @@
     <h2><i class="large ui frown icon"></i>调试软件列表还是空的，赶快添加一个吧！</h2>
   </div>
   <h4 class="ui horizontal header divider"><i class="settings icon"></i>升级软件</h4>
-  <div class="ui link six cards" v-if="updateSoftwares.length != 0">
+  <div class="ui link six cards" v-if="updateSoftwares != null && updateSoftwares.length != 0">
     <div class="blue card" style="width:190px;" :class="item.color" v-for="item in updateSoftwares">
-      <div class="blurring image"><img style="height: 190px;" :src="'/resource/' + item.softwareImg" v-on:click="choseSoftware()">
+      <div class="blurring image"><img style="height: 190px;" :src="'/resource/' + item.softwareImg" @click="choseSoftware()">
         <div class="rounded ui dimmer" style="border-radius:5px 5px 0px 0px;">
           <div class="content">
             <div class="center">

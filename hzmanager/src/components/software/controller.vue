@@ -7,17 +7,16 @@
     <div class="active section"><span style="color:#584B4F;">软件管理</span></div>
   </div>
   <!--软件提示-->
-  <div class="ui yellow message">
+  <div class="ui info message">
     <div class="header">软件管理</div>
     <p>软件管理功能可以帮助您维护服务平台的软件，在该页您可以增加，停用软件。</p>
     <div class="fluid ui buttons">
-      <div class="ui button" @click="showNewSwMod()">
-        </i>新增软件</div>
+      <div class="ui button" @click="showNewSwMod()">新增软件</div>
     </div>
   </div>
   <div class="ui divider"></div>
   <!--点击软件后显示的操作区，如果不点击软件，则给出提示消息。-->
-  <div class="ui icon ignored info message" v-if="selectedSoftware == null || selectedSoftware.softwareId == null || selectedSoftware.softwareId == ''">
+  <div class="ui icon ignored yellow message" v-if="selectedSoftware == null || selectedSoftware.softwareId == null || selectedSoftware.softwareId == ''">
     <i class="info grey icon"></i> 选择软件后可以快捷操作软件版本和关联角色。
   </div>
   <div class="ui basic segment" style="padding:0px;" v-else>
@@ -26,22 +25,22 @@
       <a class="item" data-tab="role">关联角色</a>
     </div>
     <!--分支的快捷操作-->
-    <div class="ui bottom attached active tab segment" data-tab="version" style="height:305px;">
+    <div class="ui bottom attached active tab segment" data-tab="version" style="height:305px;padding:10px;margin-bottom:0px;">
       <div class="ui grid" style="height:50px;">
         <div class="left floated left aligned ten wide column" style="padding:18px 0px 15px 20px;">
           <h4>软件共 <a class="ui mini circular label" @click="showBranchsBelongSw(selectedSoftware.softwareId)">{{branchs.count}}</a> 个版本</h4>
         </div>
         <div class="right floated right aligned six wide column" style="padding:12px 15px 10px 5px;">
-          <div class="ui mini icon button" @click="showNewVerMod()"><i class="add icon"></i></div>
+          <button class="ui mini icon button" @click="showNewVerMod()" style="margin:0px;"><i class="add icon"></i></button>
         </div>
       </div>
-      <div class="ui divider"></div>
-      <div class="ui very relaxed divided list">
+      <div class="ui divider" style="margin: 14px 0px 2px 0px;"></div>
+      <div class="ui very relaxed divided list" style="margin-top:2px;">
         <div class="item" v-for="item in branchs.items" style="padding:6px 0px;">
           <div class="right floated content">
-            <button class="ui mini icon button"><i class="download icon"></i></button>
+            <button class="ui mini icon button" style="margin:0px;"><i class="download icon"></i></button>
           </div>
-          <img class="ui middle aligned avatar image" :src="'http://127.0.0.1:7000/static/' + selectedSoftware.softwareImg">
+          <img class="ui middle aligned avatar image" :src="'/resource/static/' + selectedSoftware.softwareImg">
           <div class="content">
             <a class="header">{{item.branchVersion}}@{{item.note.branchName}}</a>
             <div class="description">{{item.note.branchNote | substr(13)}}</div>

@@ -195,9 +195,6 @@
 <script>
 import Vue from 'vue'
 import axios from 'axios'
-import {
-  message
-} from '../message/message.js'
 
 Vue.directive('refresh', {
   update: function() {
@@ -218,10 +215,6 @@ export default {
         softwareVersion: '',
         softwareType: '',
         softwareGlobal: []
-      },
-      message: {
-        title: '',
-        content: ''
       }
     }
   },
@@ -354,12 +347,12 @@ export default {
         .then(function(response) {
           $('#newSoftwareModal').modal('hide');
           setTimeout(() => {
-            message.$emit('show', 'positive', '成功', '已为您添加新的软件。');
+            //message.$emit('show', 'positive', '成功', '已为您添加新的软件。');
           }, 500);
         })
         .catch(function(response) {
-          this.message.title = '失败';
-          this.message.content = '无法为您存入软件'
+          //this.message.title = '失败';
+          //this.message.content = '无法为您存入软件'
         });
     }
   },
@@ -381,10 +374,10 @@ export default {
             softwareApk: {},
             softwareGlobal: []
           },
-          this.message = {
-            title: '',
-            content: ''
-          }
+          //this.message = {
+            //title: '',
+            //content: ''
+          //}
         $('#softwareInfoForm').form('clear');
         $('#languageForm').form('clear');
       }.bind(this)

@@ -5,7 +5,7 @@
     <i class="right arrow icon divider"></i>
     <div class="active section"><span style="color:#584B4F;">用户管理</span></div>
   </div>
-  <div class="ui yellow message">
+  <div class="ui info message">
     <div class="header">用户管理</div>
     <p>用户管理功能可以帮助您管理平台的用户。</p>
     <div class="fluid ui buttons">
