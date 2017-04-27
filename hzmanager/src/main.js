@@ -15,7 +15,11 @@ Vue.config.productionTip = false
 Vue.use(VueRouter);
 // 自定义字符串过滤器
 Vue.filter('substr',function(str,length){
-  return str.substr(0,length)+'...';
+  if(str.length > length){
+    return str.substr(0,length)+'...';
+  }else{
+    return str;
+  }
 });
 Vue.filter('transferLanguageToFlag',function(language){
   switch(language)

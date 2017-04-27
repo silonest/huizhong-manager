@@ -2,7 +2,7 @@
 <div id="allVersionApp" class="ui basic segment" style="box-sizing: border-box ; position: relative;left:0px;margin:0px;padding:0px;height:100%;width:100%;">
   <div class="ui basic segment" style="height:79px;width:100%;padding:0px;margin:0px;">
     <div class="ui breadcrumb" style="margin-top:65px;margin-left:10px;">
-      <a class="section"  href="#/"><span style="color:#24292e;"><i class="circular arrow left icon"></i></span></a>
+      <a class="section" href="#/"><span style="color:#24292e;"><i class="circular arrow left icon"></i></span></a>
     </div>
   </div>
   <div class="ui basic segment" style="position:absolute;top:100px;bottom:0px;width:100%;margin: 0px 10px 0px 0px;padding:15px;">
@@ -22,7 +22,7 @@
         <template v-for="item in branchs">
           <template v-if="item.notes.length == 1 || item.notes.length == 0">
             <tr>
-              <td><div class="ui teal ribbon label" v-show="item.branchUseFlag == 1">当前</div>{{item.branchVersion}}</td>
+              <td><div class="ui teal ribbon label" v-show="item.branchUseFlag == 1" >Now</div>{{item.branchVersion}}</td>
               <td><i class="flag" :class="item.notes[0].branchLanguage | transferLanguageToFlag"></i>{{item.notes[0].branchLanguage | transferLanguageToStr}}</td>
               <td>{{item.notes[0].branchName}}</td>
               <td>{{item.notes[0].branchNote}}</td>
@@ -33,7 +33,7 @@
                   <button class="ui button" v-show="item.branchUseFlag != 1"><i class="check icon"></i></button>
                   <button class="ui button"><i class="remove icon"></i></button>
                   <button class="ui button" @click="editVersion(item.notes[0])"><i class="edit icon"></i></button>
-                  <a class="ui button" :href="'http://127.0.0.1:7000/static/' + item.notes[0].branchAddr" download><i class="download icon"></i></a>
+                  <a class="ui button" :href="'/resource/static/' + item.notes[0].branchAddr" download><i class="download icon"></i></a>
                 </div>
               </td>
             </tr>
@@ -41,7 +41,7 @@
           <template v-else>
 <template v-for="(note,index) in item.notes">
               <tr v-if="index == 0">
-                <td :rowspan="item.notes.length"><div class="ui ribbon label" v-show="item.branchUseFlag == 1">First</div>{{item.branchVersion}}</td>
+                <td :rowspan="item.notes.length"><div class="ui teal ribbon label" v-show="item.branchUseFlag == 1">Now</div>{{item.branchVersion}}</td>
                 <td><i class="flag" :class="note.branchLanguage | transferLanguageToFlag"></i>{{note.branchLanguage | transferLanguageToStr}}</td>
                 <td>{{note.branchName}}</td>
                 <td>{{note.branchNote}}</td>
@@ -52,7 +52,7 @@
                     <button class="ui button" v-show="item.branchUseFlag != 1"><i class="check icon"></i></button>
                     <button class="ui button"><i class="remove icon"></i></button>
                     <button class="ui button" @click="editVersion(note)"><i class="edit icon"></i></button>
-                    <a class="ui button" :href="'http://127.0.0.1:7000/static/' + note.branchAddr" download><i class="download icon"></i></a>
+                    <a class="ui button" :href="'/resource/static/' + note.branchAddr" download><i class="download icon"></i></a>
                   </div>
                 </td>
               </tr>
@@ -67,7 +67,7 @@
                     <button class="ui button" v-show="item.branchUseFlag != 1"><i class="check icon"></i></button>
                     <button class="ui button"><i class="remove icon"></i></button>
                     <button class="ui button" @click="editVersion(note)"><i class="edit icon"></i></button>
-                    <a class="ui button" :href="'http://127.0.0.1:7000/static/' + note.branchAddr" download><i class="download icon"></i></a>
+                    <a class="ui button" :href="'/resource/static/' + note.branchAddr" download><i class="download icon"></i></a>
                   </div>
                 </td>
               </tr>
@@ -117,6 +117,7 @@
 </template>
 <script>
 import axios from 'axios'
+
 export default {
   data() {
     return {
@@ -127,9 +128,6 @@ export default {
     }
   },
   methods: {
-    back(){
-
-    },
     choseApk() {
       $('#choseSoftwareButton').click();
     },
@@ -149,6 +147,15 @@ export default {
       this.fileName = this.currentNote.branchAddr;
       $('.allversion.ui.modal').modal('show');
     },
+    fillTable() {
+      axios.get('/resource/dynamic/software/' + this.$route.query.sid + '/all/version')
+        .then(response => {
+          this.branchs = response.data.content;
+        })
+        .catch(function(error) {
+          alert(error);
+        });
+    },
     submit() {
       axios.put('/resource/dynamic/branch/note/' + this.currentNote.noteId, {
           note: {
@@ -158,7 +165,7 @@ export default {
           'branchApkBase64': this.branchApk
         })
         .then(response => {
-
+          $('.allversion.ui.modal').modal('hide');
         })
         .catch(function(error) {
           alert(error);
@@ -167,18 +174,11 @@ export default {
   },
   mounted: function() {
     $('.allversion.ui.modal').modal({
-      context: '#allVersionApp',
+      context: '#app',
       blurring: true,
       closable: false
     });
-
-    axios.get('/resource/dynamic/software/' + this.$route.query.sid + '/all/version')
-      .then(response => {
-        this.branchs = response.data.content;
-      })
-      .catch(function(error) {
-        alert(error);
-      });
+    this.fillTable();
   }
 }
 </script>
