@@ -41,8 +41,8 @@
             <div class="visible content">重置密码</div>
             <div class="hidden content">设为“0”？</div>
           </div> -->
-          <button class="ui small label button"><i class="play icon"></i>启用</button>
-          <button class="ui small label button"><i class="edit icon"></i>编辑</button>
+          <button class="ui green small label button"><i class="play icon"></i>启用</button>
+          <button class="ui small label button" @click="editUser(item)"><i class="edit icon"></i>编辑</button>
           <button class="ui small label button" @click="showDeleteUserMod()"><i class="remove icon"></i>删除</button>
           <!--
           <button class="ui button"><i class="remove icon"></i></button> -->
@@ -66,9 +66,6 @@
 </template>
 <script>
 import axios from 'axios';
-import {
-  toaster
-} from '../toast.js';
 
 export default {
   data() {
@@ -77,16 +74,18 @@ export default {
     }
   },
   methods: {
+    editUser(user){
+      this.$emit('showEditUserMod',user);
+    },
     resetUserPwd(userId) {
 
     },
     showDeleteUserMod() {
-      // $('#deleteUserMod').modal('show');
-      toaster.success('添加成功!');
+      $('#deleteUserMod').modal('show');
     },
     fillTable: function() {
       //给table填充用户
-      axios.get('/resource/dynamic/users')
+      axios.get('/resource/dynamic/manager/users')
         .then(response => {
           this.users = response.data.content;
         })
@@ -97,8 +96,9 @@ export default {
   },
   mounted: function() {
     $('#deleteUserMod').modal({
+      context: '#app',
       blurring: true,
-      closable: false,
+      closable: false
     });
     this.fillTable();
   }

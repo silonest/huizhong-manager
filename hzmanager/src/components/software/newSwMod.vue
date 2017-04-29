@@ -215,6 +215,10 @@ export default {
         softwareVersion: '',
         softwareType: '',
         softwareGlobal: []
+      },
+      message: {
+        title: null,
+        content: null
       }
     }
   },
@@ -351,8 +355,8 @@ export default {
           }, 500);
         })
         .catch(function(response) {
-          //this.message.title = '失败';
-          //this.message.content = '无法为您存入软件'
+          this.message.title = '失败';
+          this.message.content = '无法为您存入软件'
         });
     }
   },
@@ -375,10 +379,10 @@ export default {
             softwareGlobal: []
           },
           //this.message = {
-            //title: '',
-            //content: ''
+          //title: '',
+          //content: ''
           //}
-        $('#softwareInfoForm').form('clear');
+          $('#softwareInfoForm').form('clear');
         $('#languageForm').form('clear');
       }.bind(this)
     });
