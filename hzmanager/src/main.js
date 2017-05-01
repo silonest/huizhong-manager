@@ -9,6 +9,8 @@ import software from './components/software/main.vue'
 import role from './components/role/main.vue'
 import user from './components/user/main.vue'
 import branch from './components/software/branchs.vue'
+import inspector from './components/inspector/main.vue'
+import toaster from '../toast/dist/jquery.toast.min.js'
 import VueRouter from 'vue-router'
 //import router from './router'
 Vue.config.productionTip = false
@@ -51,6 +53,44 @@ Vue.filter('isEmpty', function(e) {
     return !1;
   return !0
 });
+Vue.prototype.toast = {
+  success: function(content) {
+    $.toast({
+      heading: '成功',
+      text: content,
+      icon: 'success',
+      showHideTransition: 'fade', // It can be plain, fade or slide
+      bgColor: '#40A977', // Background color for toast
+      textColor: '#eee', // text color
+      textAlign: 'left', // Alignment of text i.e. left, right, center
+      position: 'bottom-right' // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values to position the toast on page
+    })
+  },
+  error: function(content) {
+    $.toast({
+      heading: '失败',
+      text: content,
+      icon: 'error',
+      showHideTransition: 'fade', // It can be plain, fade or slide
+      bgColor: '#40A977', // Background color for toast
+      textColor: '#eee', // text color
+      textAlign: 'left', // Alignment of text i.e. left, right, center
+      position: 'bottom-right' // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values to position the toast on page
+    })
+  },
+  info: function(content) {
+    $.toast({
+      heading: '成功',
+      text: content,
+      icon: 'info',
+      showHideTransition: 'fade', // It can be plain, fade or slide
+      bgColor: '#40A977', // Background color for toast
+      textColor: '#eee', // text color
+      textAlign: 'left', // Alignment of text i.e. left, right, center
+      position: 'bottom-right' // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values to position the toast on page
+    })
+  }
+}
 //定义路径
 const routes = [{
     path: '/',
@@ -67,6 +107,10 @@ const routes = [{
   {
     path: '/branch',
     component: branch
+  },
+  {
+    path: '/inspector',
+    component: inspector
   }
 ]
 //创建路由对象

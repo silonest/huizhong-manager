@@ -9,6 +9,7 @@
     <div class="header">用户管理</div>
     <p>用户管理功能可以帮助您管理平台的用户。</p>
     <div class="fluid ui buttons">
+      <div class="ui button">编辑用户角色</div>
       <div class="ui button" @click="showNewUserMod()">新增用户</div>
     </div>
   </div>

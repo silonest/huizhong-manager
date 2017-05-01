@@ -10,7 +10,7 @@
         <img class="ui mini avatar image" src="./assets/imgs/user.jpg" style="height:30px;width:30px;">
         <i class="angle down icon"></i>
       </a>
-      <a id="apply" class="red item" @click="showPendingSidebar()" style="height:50px;">
+      <a id="apply" class="red item" style="height:50px;" href="#/inspector">
         <i class="alarm icon" style="color:#FFFFFF;top:0px;bottom:0px;"></i>1
       </a>
     </div>
