@@ -20,7 +20,7 @@
     <tbody>
       <tr v-for="item in users">
         <td class="center aligned">
-          <div class="ui empty circular label" :class="item.userUseFlag == 0 ? 'red' : item.userUseFlag == 1 ? 'red' : 'orange'"></div>
+          <div class="ui empty circular label" :class="item.userUseFlag == 0 ? 'red' : item.userUseFlag == 1 ? 'green' : 'orange'"></div>
         </td>
         <td>{{item.userAccount}}</td>
         <td>{{item.userName}}</td>
@@ -41,7 +41,8 @@
             <div class="visible content">重置密码</div>
             <div class="hidden content">设为“0”？</div>
           </div> -->
-          <button class="ui green small label button"><i class="play icon"></i>启用</button>
+          <button class="ui small label button" v-if="item.userUseFlag == 0" @click="changeUserUsedStatus(item,'used')"><i class="play icon"></i>启用</button>
+          <button class="ui small label button" v-else @click="changeUserUsedStatus(item,'unused')"><i class="pause icon"></i>停用</button>
           <button class="ui small label button" @click="editUser(item)"><i class="edit icon"></i>编辑</button>
           <button class="ui small label button" @click="showDeleteUserMod()"><i class="remove icon"></i>删除</button>
           <!--
@@ -74,11 +75,24 @@ export default {
     }
   },
   methods: {
-    editUser(user){
-      this.$emit('showEditUserMod',user);
+    editUser(user) {
+      this.$emit('showEditUserMod', user);
     },
-    resetUserPwd(userId) {
-
+    changeUserUsedStatus(user, usedType) {
+      axios.put('/resource/dynamic/manager/user/' + user.userId + '/used/' + usedType)
+        .then(response => {
+          if (usedType == 'used') {
+            user.userUseFlag = 1;
+            this.toast.success('已启用');
+          } else if (usedType == 'unused') {
+            user.userUseFlag = 0;
+            this.toast.success('已停用');
+          } else {
+            this.toast.error('未执行');
+          }
+        }).catch(function(error) {
+          alert(error);
+        });
     },
     showDeleteUserMod() {
       $('#deleteUserMod').modal('show');

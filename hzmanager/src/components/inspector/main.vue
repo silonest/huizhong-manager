@@ -4,8 +4,8 @@
   <div style="flex:1 1 auto;">
     <div class="ui container" style="margin-top:20px;">
       <div id="inspectorTab" class="ui top attached tabular menu">
-        <a class="item active" data-tab="user">用户申请 <div class="floating ui red label">1</div></a>
-        <a class="item" data-tab="login">登录申请 <div class="floating ui teal label">2</div></a>
+        <a class="item active" data-tab="user">用户申请 <div class="floating ui red label" v-if="waitingCount.passCount > 0">{{waitingCount.passCount}}</div></a>
+        <a class="item" data-tab="login">密钥申请 <div class="floating ui red label" v-if="waitingCount.licenceCount > 0">{{waitingCount.licenceCount}}</div></a>
         <div class="right menu">
           <div class="item">
             <div class="ui large transparent icon input">
@@ -51,12 +51,9 @@
               <div class="right floated meta">
                 <a class="ui red empty circular label"></a>
               </div>
-              <div class="icon header" style="font-size:13px;"><i class="lock icon"></i>密码</div>
+              <div class="icon header" style="font-size:13px;"><i class="lock icon"></i>密钥</div>
               <div class="meta">在 {{ item.licenceCtime }} 提交申请</div>
-
-              <div class="description">
-
-              </div>
+              <div class="description">我是"{{ item.user.userName }}"，我想使用"{{ item.software.note.softwareName }}"，我的理由是"{{ item.licenceReason }}"</div>
             </div>
             <div class="extra content">
               <div class="ui mini horizontal divided list">
@@ -82,12 +79,14 @@
 </div>
 </template>
 <script>
-import axios from 'axios'
+import axios from 'axios';
+import bus from './eventBus.js';
 export default {
   data() {
     return {
       users: null,
-      licences: null
+      licences: null,
+      waitingCount: {}
     }
   },
   methods: {
@@ -100,7 +99,7 @@ export default {
           alert(response);
         });
     },
-    fillWaitingLicence(){
+    fillWaitingLicence() {
       axios.get('/resource/dynamic/waiting/licences')
         .then(response => {
           this.licences = response.data.content;
@@ -114,6 +113,7 @@ export default {
         .then(response => {
           this.toast.success('审核结果已更改');
           this.users.splice(index, 1);
+          this.waitingCount.passCount--;
         })
         .catch(function(error) {
           alert(response);
@@ -126,21 +126,49 @@ export default {
         .then(response => {
           this.toast.success('审核结果已更改');
           this.users.splice(index, 1);
+          this.waitingCount.passCount--;
         })
         .catch(function(error) {
           alert(response);
         });
     },
-    licenceApprove(){
-
+    licenceApprove(licenceId, index) {
+      let period = this.$refs['licence-period-' + licenceId][0].value;
+      axios.put('/resource/dynamic/licence/' + licenceId + '/inspect/approve', {
+          period: period == null || period == undefined || period == '' ? 0 : period
+        })
+        .then(response => {
+          this.toast.success('已通过审核');
+          this.licences.splice(index, 1);
+          this.waitingCount.licenceCount--;
+        })
+        .catch(function(error) {
+          alert(response);
+        });
     },
-    licenceDecline(){
-
+    licenceDecline(licenceId,index) {
+      let inspectReason = this.$refs['licence-reason-' + licenceId][0].value;
+      if (inspectReason == null || inspectReason == undefined || inspectReason == '') {
+        this.$refs['licence-reason-' + licenceId][0].focus();
+      } else {
+        axios.put('/resource/dynamic/licence/' + licenceId + '/inspect/decline', {
+            inspectReason: inspectReason
+          })
+          .then(response => {
+            this.toast.success('已拒绝');
+            this.licences.splice(index, 1);
+            this.waitingCount.licenceCount--;
+          })
+          .catch(function(error) {
+            alert(response);
+          });
+      }
     }
   },
   mounted: function() {
     this.fillWaitingUsers();
     this.fillWaitingLicence();
+    this.waitingCount = bus.getWaitingCount();
     $('#inspectorTab .item').tab();
   }
 }
