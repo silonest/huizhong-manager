@@ -3,9 +3,9 @@
   <h4 class="ui horizontal header divider">所有角色</h4>
   <table class="ui yellow striped table" <div class="ui grid">
     <div class="four wide column">
-      <div class="ui cards">
+      <div class="ui link cards">
         <div class="ui card" v-for="item in roles" v-if="item.roleLevel == 1">
-          <div class="content">
+          <div class="content" v-on:click="choseRole(item)">
             <i class="left floated ui pin icon"></i>
             <div class="header">{{item.roleName}}</div>
             <div class="description">{{item.roleIntroduction}}</div>
@@ -20,7 +20,7 @@
     <div class="twelve wide column">
       <div class="ui cards">
         <div class="ui card" v-for="item in roles" v-if="item.roleLevel == 2">
-          <div class="content">
+          <div class="content" v-on:click="choseRole(item)">
             <div class="header">{{item.roleName}}</div>
             <div class="description">{{item.roleIntroduction}}</div>
           </div>
@@ -63,6 +63,9 @@ export default {
         .catch(function(error) {
           alert(error);
         });
+    },
+    choseRole(role) {
+        this.$emit('selectRole', role);
     }
   },
   mounted: function() {

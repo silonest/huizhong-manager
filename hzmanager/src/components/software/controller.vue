@@ -49,7 +49,7 @@
     <div class="ui bottom attached tab segment" data-tab="role" style="height:305px;padding:10px;margin-bottom:0px;">
       <div class="ui grid" style="height:50px;">
         <div class="left floated left aligned ten wide column" style="padding:18px 0px 15px 20px;">
-          <h4>软件共 <a class="ui mini circular label" @click="showBranchsBelongSw(selectedSoftware.softwareId)">{{branchs.count}}</a> 个版本</h4>
+          <h4>软件共 <a class="ui mini circular label" @click="showBranchsBelongSw(selectedSoftware.softwareId)">{{branchs.count}}</a> 个角色</h4>
         </div>
         <div class="right floated right aligned six wide column" style="padding:12px 15px 10px 5px;">
           <button class="ui mini icon button" @click="showNewVerMod()" style="margin:0px;"><i class="add icon"></i></button>
