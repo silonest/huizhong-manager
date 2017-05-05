@@ -69,9 +69,8 @@ export default {
       axios.get('/resource/dynamic/roles')
         .then(response => {
           this.roles = response.data.content;
-        })
-        .catch(function(error) {
-          alert(response);
+        }).catch(function(error) {
+          alert(error);
         });
     },
     submit() {

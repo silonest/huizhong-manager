@@ -25,7 +25,8 @@
               <div class="icon header" style="font-size:13px;"><i class="user icon"></i>用户</div>
               <div class="meta">在 {{ item.pass.passCtime }} 提交申请</div>
               <div class="description">我是"{{ item.userName }}"，我的介绍人是"{{ item.pass.passUserReference }}"，
-                <template v-if="item.userIntroduction != null">我的个人简介是"{{ item.userIntroduction }}"，</template>我想加入你们。
+                <template v-if="item.userIntroduction != null">我的个人简介是"{{ item.userIntroduction }}"，
+</template>我想加入你们。
               </div>
             </div>
             <div class="extra content">
@@ -114,23 +115,27 @@ export default {
           this.toast.success('审核结果已更改');
           this.users.splice(index, 1);
           this.waitingCount.passCount--;
-        })
-        .catch(function(error) {
-          alert(response);
+        }).catch(function(error) {
+          alert(error);
         });
     },
     userDecline(passId, index) {
-      axios.put('/resource/dynamic/pass/' + passId + '/inspect/decline',
-          this.$refs['user-reason-' + passId][0].value
-        )
-        .then(response => {
-          this.toast.success('审核结果已更改');
-          this.users.splice(index, 1);
-          this.waitingCount.passCount--;
-        })
-        .catch(function(error) {
-          alert(response);
-        });
+      let inspectReason = this.$refs['user-reason-' + passId][0].value;
+      if (inspectReason == null || inspectReason == undefined || inspectReason == '') {
+        this.$refs['user-reason-' + passId][0].focus();
+      } else {
+        axios.put('/resource/dynamic/pass/' + passId + '/inspect/decline',
+            this.$refs['user-reason-' + passId][0].value
+          )
+          .then(response => {
+            this.toast.success('审核结果已更改');
+            this.users.splice(index, 1);
+            this.waitingCount.passCount--;
+          })
+          .catch(function(error) {
+            alert(response);
+          });
+      }
     },
     licenceApprove(licenceId, index) {
       let period = this.$refs['licence-period-' + licenceId][0].value;
@@ -146,7 +151,7 @@ export default {
           alert(response);
         });
     },
-    licenceDecline(licenceId,index) {
+    licenceDecline(licenceId, index) {
       let inspectReason = this.$refs['licence-reason-' + licenceId][0].value;
       if (inspectReason == null || inspectReason == undefined || inspectReason == '') {
         this.$refs['licence-reason-' + licenceId][0].focus();
@@ -166,6 +171,7 @@ export default {
     }
   },
   mounted: function() {
+    $('.ui.dropdown').dropdown();
     this.fillWaitingUsers();
     this.fillWaitingLicence();
     this.waitingCount = bus.getWaitingCount();

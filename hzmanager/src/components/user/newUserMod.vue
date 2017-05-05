@@ -25,9 +25,7 @@
         <div class="four wide required field">
           <label>用户角色</label>
           <select class="role ui dropdown" ref="userRole">
-            <option value="china">中文</option>
-            <option value="united kingdom">English</option>
-            <option value="france">法文</option>
+            <option :value="item.roleId" v-for="item in roles">{{item.roleName}}</option>
           </select>
         </div>
       </div>
@@ -47,19 +45,30 @@
 </div>
 </template>
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
-
+      roles: {}
     }
   },
   methods: {
     show() {
       $('.newuser.ui.modal').modal('show');
+    },
+    fillRoleSelect() {
+      //给角色选择下拉菜单填充用户
+      axios.get('/resource/dynamic/roles')
+        .then(response => {
+          this.roles = response.data.content;
+        }).catch(function(error) {
+          alert(error);
+        });
     }
   },
   mounted: function() {
-    $('.role.ui.dropdown').dropdown('set selected', 'china');
+    this.fillRoleSelect();
     $('.newuser.ui.modal').modal({
       context: '#app',
       blurring: true,

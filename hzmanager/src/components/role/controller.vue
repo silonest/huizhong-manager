@@ -11,13 +11,14 @@
     <div class="header">角色管理</div>
     <p>角色管理功能可以帮助您维护服务平台的软件，在该页您可以增加，停用软件。</p>
     <div class="fluid ui buttons">
-      <div class="ui button" @click="showNewSwMod()">新增角色</div>
+      <div class="ui button" @click="showNewRoleMod()">新增角色</div>
     </div>
   </div>
   <div class="ui basic segment" style="padding:0px;">
     <div id="roleControllerTab" class="ui pointing secondary menu">
       <a class="item active" data-tab="debugger">调试软件</a>
       <a class="item" data-tab="updater">升级软件</a>
+      <div class="right item" v-if="selectedRole.roleName != null">{{ selectedRole.roleName }}</div>
     </div>
     <div class="active ui bottom tab basic segment" data-tab="debugger" style="padding:0px;margin-bottom:0px;">
       <table class="ui small compact single line table">
@@ -121,6 +122,9 @@ export default {
         }).catch(function(error) {
           alert(error);
         });
+    },
+    showNewRoleMod() {
+      this.$emit('showNewRoleMod');
     }
   },
   mounted: function() {

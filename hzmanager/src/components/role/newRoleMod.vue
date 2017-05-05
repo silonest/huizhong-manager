@@ -1,0 +1,64 @@
+<template>
+<div class="newrole ui modal">
+  <i class="close icon"></i>
+  <h4 class="ui header">
+    <i class="settings icon"></i>
+    <div class="content">新增角色<div class="sub header">新增一个系统角色</div></div>
+  </h4>
+  <div class="content">
+    <div id="newRoleForm" class="ui small form">
+      <div class="two fields">
+        <div class="six wide required field">
+          <label>角色名</label>
+          <input name="roleName" type="text" placeholder="请输入角色名..." ref="roleName" />
+        </div>
+        <div class="six wide required field">
+          <label>角色简介</label>
+          <input name="roleIntroduction" type="text" placeholder="请输入角色简介..." ref="roleIntroduction" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui green right labeled icon button" @click="submit()"><i class="checkmark right icon"></i>新增角色</div>
+  </div>
+</div>
+</template>
+<script>
+import axios from 'axios';
+export default {
+  data() {
+    return {
+
+    }
+  },
+  methods: {
+    show() {
+      $('.newrole.ui.modal').modal('show');
+    },
+    hide(){
+      $('.newrole.ui.modal').modal('hide');
+      $('#newRoleForm').form('clear');
+    },
+    submit(){
+      axios.post('/resource/dynamic/role', {
+          roleName: this.$refs.roleName.value,
+          roleIntroduction: this.$refs.roleIntroduction.value
+        }).then(function(response) {
+          this.hide();
+          this.$emit('refreshRoles');
+          this.toast.success('新增成功');
+        }.bind(this)).catch(function(error) {
+          alert(error);
+        });
+    }
+  },
+  mounted: function() {
+    $('.newrole.ui.modal').modal({
+      context: '#app',
+      blurring: true,
+      closable: false
+    });
+  }
+}
+</script>
