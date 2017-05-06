@@ -342,17 +342,14 @@ export default {
         });
       }
       branch.notes = branchNote;
-      axios.post('/resource/software', {
+      axios.post('/resource/dynamic/software', {
           'softwareImgBase64': this.createSoftwareForm.softwareImg,
           'softwareType': this.createSoftwareForm.softwareType,
           'notes': softwareNote,
           'branch': branch
-        })
-        .then(function(response) {
+        }).then(function(response) {
           $('#newSoftwareModal').modal('hide');
-          setTimeout(() => {
-            //message.$emit('show', 'positive', '成功', '已为您添加新的软件。');
-          }, 500);
+          this.toast.success('添加成功');
         })
         .catch(function(response) {
           this.message.title = '失败';

@@ -35,8 +35,8 @@
   <h4 class="ui horizontal header divider"><i class="settings icon"></i>升级软件</h4>
   <div class="ui link six cards" v-if="updateSoftwares != null && updateSoftwares.length != 0">
     <div class="blue card" style="width:190px;" :class="item.color" v-for="item in updateSoftwares">
-      <div class="blurring image"><img style="height: 190px;" :src="'/resource/' + item.softwareImg" @click="choseSoftware()">
-        <div class="rounded ui dimmer" style="border-radius:5px 5px 0px 0px;">
+      <div class="blurring image" v-if="item.softwareUseFlag == 0"><img class="image" style="width 190px;height: 190px" :src="'/resource/static/' + item.softwareImg" v-on:click="choseSoftware()" />
+        <div class="rounded ui dimmer" style="border-radius:5px 5px 0px 0px;" @click="choseSoftware(item)">
           <div class="content">
             <div class="center">
               <h5 class="ui inverted icon header">已停用</h5>
@@ -44,6 +44,7 @@
           </div>
         </div>
       </div>
+      <img class="image" style="height: 190px" :src="'/resource/static/' + item.softwareImg" v-else @click="choseSoftware(item)" />
       <div class="content">
         <div class="header">{{item.note.softwareName}}</div>
         <div class="meta">当前版本:{{item.branch.branchVersion}}</div>

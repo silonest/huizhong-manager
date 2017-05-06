@@ -51,17 +51,17 @@
         <div class="left floated left aligned ten wide column" style="padding:18px 0px 15px 20px;">
           <h4>软件共 <a class="ui mini circular label" @click="showBranchsBelongSw(selectedSoftware.softwareId)">{{branchs.count}}</a> 个角色</h4>
         </div>
-        <div class="right floated right aligned six wide column" style="padding:12px 15px 10px 5px;">
+        <!-- <div class="right floated right aligned six wide column" style="padding:12px 15px 10px 5px;">
           <button class="ui mini icon button" @click="showNewVerMod()" style="margin:0px;"><i class="add icon"></i></button>
-        </div>
+        </div> -->
       </div>
       <div class="ui divider" style="margin: 14px 0px 2px 0px;"></div>
       <div class="ui very relaxed divided list" style="margin-top:2px;">
 
         <div class="item" v-for="item in roles" style="padding:6px 0px;">
-          <div class="right floated content">
+          <!-- <div class="right floated content">
             <button class="ui mini icon button" style="margin:0px;"><i class="download icon"></i></button>
-          </div>
+          </div> -->
           <img class="ui middle aligned avatar image" :src="'/resource/static/' + selectedSoftware.softwareImg">
           <div class="content">
             <a class="header">{{item.roleName}}</a>

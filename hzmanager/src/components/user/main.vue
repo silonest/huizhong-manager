@@ -10,11 +10,11 @@
       </div>
     </div>
     <div class="container" style="flex:1 1 auto;">
-      <user-container v-on:showEditUserMod="showEditUserMod"></user-container>
+      <user-container v-on:showEditUserMod="showEditUserMod" ref="container"></user-container>
     </div>
   </div>
   <user-mod-new ref="newUserMod"></user-mod-new>
-  <user-mod-edit v-bind:user="selectedUser" ref="editUserMod"></user-mod-edit>
+  <user-mod-edit v-bind:user="selectedUser" v-on:refreshUsers="refreshUsers" ref="editUserMod"></user-mod-edit>
 </div>
 </template>
 <script>
@@ -41,6 +41,10 @@ export default {
     showEditUserMod(user) {
       this.selectedUser = user;
       this.$refs.editUserMod.show();
+    },
+    refreshUsers(){
+      alert(1);
+      this.$refs.container.fillTable();
     }
   },
   mounted: function() {
