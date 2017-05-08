@@ -4,8 +4,8 @@
   <div style="flex:1 1 auto;">
     <div class="ui container" style="margin-top:20px;">
       <div id="inspectorTab" class="ui top attached tabular menu">
-        <a class="item active" data-tab="user">用户申请 <div class="floating ui red label" v-if="waitingCount.passCount > 0">{{waitingCount.passCount}}</div></a>
-        <a class="item" data-tab="login">密钥申请 <div class="floating ui red label" v-if="waitingCount.licenceCount > 0">{{waitingCount.licenceCount}}</div></a>
+        <a class="item active" data-tab="user">用户申请 <div class="floating ui red label" v-show="waitingCount.passCount > 0">{{waitingCount.passCount}}</div></a>
+        <a class="item" data-tab="login">密钥申请 <div class="floating ui red label" v-show="waitingCount.licenceCount > 0">{{waitingCount.licenceCount}}</div></a>
         <div class="right menu">
           <div class="item">
             <div class="ui large transparent icon input">
@@ -25,8 +25,7 @@
               <div class="icon header" style="font-size:13px;"><i class="user icon"></i>用户</div>
               <div class="meta">在 {{ item.pass.passCtime }} 提交申请</div>
               <div class="description">我是"{{ item.userName }}"，我的介绍人是"{{ item.pass.passUserReference }}"，
-                <template v-if="item.userIntroduction != null">我的个人简介是"{{ item.userIntroduction }}"，
-</template>我想加入你们。
+                <template v-if="item.userIntroduction != null">我的个人简介是"{{ item.userIntroduction }}"，</template>我想加入你们。
               </div>
             </div>
             <div class="extra content">
@@ -174,8 +173,8 @@ export default {
     $('.ui.dropdown').dropdown();
     this.fillWaitingUsers();
     this.fillWaitingLicence();
-    this.waitingCount = bus.getWaitingCount();
     $('#inspectorTab .item').tab();
+    this.waitingCount = bus.getWaitingCount();
   }
 }
 </script>

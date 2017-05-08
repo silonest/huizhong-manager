@@ -12,11 +12,12 @@
         <i class="angle down icon"></i>
       </a>
       <a id="apply" class="item" style="height:50px;" href="#/inspector" :class="(waitingCount.licenceCount + waitingCount.passCount) > 0 ? 'red' : null">
-        <i class="alarm icon" style="top:0px;bottom:0px;" :style="(waitingCount.licenceCount + waitingCount.passCount) > 0 ? {color: '#FFFFFF'} : null"></i><template v-if="(waitingCount.licenceCount + waitingCount.passCount) > 0">{{waitingCount.licenceCount + waitingCount.passCount}}</template>
+        <i class="mail icon" style="top:0px;bottom:0px;" :style="(waitingCount.licenceCount + waitingCount.passCount) > 0 ? {color: '#FFFFFF'} : null"></i>
+        <template v-if="(waitingCount.licenceCount + waitingCount.passCount) > 0">{{waitingCount.licenceCount + waitingCount.passCount}}</template>
       </a>
     </div>
   </div>
-  <keep-alive>
+  <keep-alive v-if="waitingCount.licenceCount != null || waitingCount.passCount != null">
     <router-view></router-view>
   </keep-alive>
 </div>
@@ -38,7 +39,15 @@ export default {
     //'app-sidebar': sidebar
   },
   methods: {
-
+    fillInspectCount() {
+      axios.get('/resource/dynamic/waiting/count')
+        .then(response => {
+          this.waitingCount = response.data.content;
+          inspectorEventBus.setWaitingCount(this.waitingCount);
+        }).catch(function(error) {
+          alert(error);
+        });
+    }
   },
   mounted: function() {
     // $('.click.item').on('click', function() {
@@ -49,15 +58,7 @@ export default {
     //     .not($(this))
     //     .removeClass('active');
     // })
-    axios.get('/resource/dynamic/waiting/count')
-      .then(response => {
-        this.waitingCount = response.data.content;
-        inspectorEventBus.setWaitingCount(this.waitingCount);
-      })
-      .catch(function(error) {
-        alert(error);
-      });
-
+    this.fillInspectCount();
     //给新增软件中软件类型的下拉菜单绑定效果
     $('.ui.dropdown').dropdown({
       transition: 'slide down'
