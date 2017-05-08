@@ -4,7 +4,7 @@
 
   <div class="ui link six cards" v-if="debugSoftwares.length != 0">
     <!--卡片-->
-    <div class="yellow card" style="width:190px;" v-for="item in debugSoftwares">
+    <div class="yellow card" style="width:190px;" v-for="(item,index) in debugSoftwares">
       <div class="blurring image" v-if="item.softwareUseFlag == 0"><img class="image" style="width 190px;height: 190px" :src="'/resource/static/' + item.softwareImg" v-on:click="choseSoftware()" />
         <div class="rounded ui dimmer" style="border-radius:5px 5px 0px 0px;" @click="choseSoftware(item)">
           <div class="content">
@@ -24,7 +24,7 @@
         <a :href="'/resource/static/' + item.branch.note.branchAddr" download><i class="download icon" data-content="下载"></i></a>
         <a v-if="item.softwareUseFlag == 0"><i class="play icon" data-content="启用" @click="changeSoftwareStatus(item,'used')"></i></a>
         <a v-else><i class="pause icon" data-content="停用" @click="changeSoftwareStatus(item,'useless')"></i></a>
-        <a><i class="remove icon" data-content="删除"></i></a>
+        <a><i class="remove icon" data-content="删除" @click="showDeleteSwChoseMod(item,index)"></i></a>
       </div>
     </div>
     <!--卡片结尾-->
@@ -34,7 +34,7 @@
   </div>
   <h4 class="ui horizontal header divider"><i class="settings icon"></i>升级软件</h4>
   <div class="ui link six cards" v-if="updateSoftwares != null && updateSoftwares.length != 0">
-    <div class="blue card" style="width:190px;" :class="item.color" v-for="item in updateSoftwares">
+    <div class="blue card" style="width:190px;" :class="item.color" v-for="(item,index) in updateSoftwares">
       <div class="blurring image" v-if="item.softwareUseFlag == 0"><img class="image" style="width 190px;height: 190px" :src="'/resource/static/' + item.softwareImg" v-on:click="choseSoftware()" />
         <div class="rounded ui dimmer" style="border-radius:5px 5px 0px 0px;" @click="choseSoftware(item)">
           <div class="content">
@@ -54,12 +54,23 @@
         <a :href="'/resource/static/' + item.branch.note.branchAddr" download><i class="download icon" data-content="下载"></i></a>
         <a v-if="item.softwareUseFlag == 0"><i class="play icon" data-content="启用" v-on:click="changeSoftwareStatus(item,'used')"></i></a>
         <a v-else><i class="pause icon" data-content="停用" v-on:click="changeSoftwareStatus(item,'useless')"></i></a>
-        <a><i class="remove icon" data-content="删除"></i></a>
+        <a><i class="remove icon" data-content="删除" @click="showDeleteSwChoseMod(item,index)"></i></a>
       </div>
     </div>
   </div>
   <div class="ui disabled center aligned basic segment" v-else>
     <h2><i class="large ui frown icon"></i>升级软件列表还是空的，赶快添加一个吧！</h2>
+  </div>
+
+  <div id="deleteSwMod" class="ui basic coupled modal">
+    <div class="ui icon header"><i class="remove icon"></i> 删除{{deleteSwTemp.note.softwareName}}？ </div>
+    <div class="content">
+      <p>你是要删除"{{deleteSwTemp.note.softwareName}}"吗，删除软件后，您将不能再对其进行任何操作。</p>
+    </div>
+    <div class="actions">
+      <div class="ui green basic cancel inverted button" @click="dropDelete()"><i class="remove icon"></i> 再想想 </div>
+      <div class="ui red ok inverted button" @click="deleteSoftware()"><i class="checkmark icon"></i> 删了吧 </div>
+    </div>
   </div>
 </div>
 </template>
@@ -69,7 +80,11 @@ export default {
   data: function() {
     return {
       debugSoftwares: [],
-      updateSoftwares: []
+      updateSoftwares: [],
+      deleteSwTemp: {
+        index: 0,
+        note: {}
+      }
     }
   },
   methods: {
@@ -95,9 +110,32 @@ export default {
           } else if (currentStatus == 'useless') {
             software.softwareUseFlag = 0;
           }
-        })
-        .catch(function(error) {
-          alert(response);
+        }).catch(function(error) {
+          alert(error);
+        });
+    },
+    showDeleteSwChoseMod(software, index) {
+      this.deleteSwTemp = software;
+      this.deleteSwTemp.index = index;
+      $('#deleteSwMod').modal('show');
+    },
+    dropDelete() {
+      $('#deleteSwMod').modal('hide');
+    },
+    deleteSoftware() {
+      let software = this.deleteSwTemp;
+      axios.put('/resource/dynamic/software/' + software.softwareId + '/status/discussion')
+        .then(response => {
+          if (software.softwareType == 0) {
+            this.debugSoftwares.splice(software.index, 1);
+          }
+          if (software.softwareType == 1) {
+            this.updateSoftwares.splice(software.index, 1);
+          }
+          $('#deleteSwMod').modal('hide');
+          this.toast.success('已删除');
+        }).catch(function(error) {
+          alert(error);
         });
     },
     showDimmer() {
@@ -117,6 +155,11 @@ export default {
     this.fillSoftwares();
   },
   mounted: function() {
+    $('#deleteSwMod').modal({
+      context: '#app',
+      blurring: true,
+      closable: false
+    });
     this.showDimmer();
   },
   updated: function() {
