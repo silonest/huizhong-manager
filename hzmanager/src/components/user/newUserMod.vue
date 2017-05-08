@@ -72,7 +72,7 @@ export default {
         requestParam.userAccount = this.$refs.phoneNum.value;
         requestParam.userPhoneNum = this.$refs.phoneNum.value;
         requestParam.userName = this.$refs.userName.value;
-        requestParam.userPassword = this.$refs.password.value;
+        requestParam.userPassword = $.md5(this.$refs.password.value);
         let role = new Object();
         role.roleId = this.$refs.userRole.value;
         requestParam.role = role;

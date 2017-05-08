@@ -76,19 +76,24 @@ export default {
     submit() {
       var role = new Object();
       role.roleId = this.$refs.roleId.value;
+      let password = null;
+      if (this.$refs.userPassword.value != this.user.userPassword) {
+        password = $.md5(this.$refs.userPassword.value);
+      }
       axios.put('/resource/dynamic/manager/user', {
-          userId: this.user.userId,
-          userName: this.$refs.userName.value,
-          userEmail: this.$refs.userEmail.value,
-          userIntroduction: this.$refs.userIntroduction.value,
-          role: role
-        })
-        .then(response => {
-          this.roles = response.data.content;
-        })
-        .catch(function(error) {
-          alert(response);
-        });
+        userId: this.user.userId,
+        userName: this.$refs.userName.value,
+        userPassword: password,
+        userEmail: this.$refs.userEmail.value,
+        userIntroduction: this.$refs.userIntroduction.value,
+        role: role
+      }).then(response => {
+        $('.edituser.ui.modal').modal('hide');
+        this.toast.success('修改成功');
+        this.$emit('refreshUsers');
+      }).catch(function(error) {
+        alert(error);
+      });
     }
   },
   mounted: function() {

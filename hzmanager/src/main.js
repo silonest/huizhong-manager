@@ -10,6 +10,7 @@ import user from './components/user/main.vue'
 import branch from './components/software/branchs.vue'
 import inspector from './components/inspector/main.vue'
 import toaster from '../toast/dist/jquery.toast.min.js'
+import md5 from '../md5/jquery.md5.js'
 import VueRouter from 'vue-router'
 //import router from './router'
 Vue.config.productionTip = false

@@ -13,7 +13,7 @@
       <user-container v-on:showEditUserMod="showEditUserMod" ref="container"></user-container>
     </div>
   </div>
-  <user-mod-new ref="newUserMod"></user-mod-new>
+  <user-mod-new ref="newUserMod" v-on:refreshUsers="refreshUsers"></user-mod-new>
   <user-mod-edit v-bind:user="selectedUser" v-on:refreshUsers="refreshUsers" ref="editUserMod"></user-mod-edit>
 </div>
 </template>
@@ -43,7 +43,6 @@ export default {
       this.$refs.editUserMod.show();
     },
     refreshUsers(){
-      alert(1);
       this.$refs.container.fillTable();
     }
   },

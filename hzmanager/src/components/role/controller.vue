@@ -101,16 +101,18 @@ export default {
   },
   methods: {
     objArrayHandler(arry) {
-      for (let i = 0; i < arry.length; i++) {
-        let obj = arry[i];
-        if (obj.role != null && obj.role.roleId != null) {
-          obj['selected'] = true;
-        } else {
-          obj['selected'] = false;
+      if(arry != null){
+        for (let i = 0; i < arry.length; i++) {
+          let obj = arry[i];
+          if (obj.role != null && obj.role.roleId != null) {
+            obj['selected'] = true;
+          } else {
+            obj['selected'] = false;
+          }
+          arry[i] = obj;
         }
-        arry[i] = obj;
+        return arry;
       }
-      return arry;
     },
     changeCheckBox(software) {
       let bindType = software.selected ? "bind" : "unbind";
