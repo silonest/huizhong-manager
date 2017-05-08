@@ -73,6 +73,20 @@ export default {
     }
   },
   methods: {
+    fillSoftwares() {
+      axios.get('/resource/dynamic/manager/softwares/type/debugger')
+        .then(response => {
+          this.debugSoftwares = response.data.content;
+        }).catch(function(error) {
+          alert(response);
+        });
+      axios.get('/resource/dynamic/manager/softwares/type/updater')
+        .then(response => {
+          this.updateSoftwares = response.data.content;
+        }).catch(function(error) {
+          alert(response);
+        });
+    },
     changeSoftwareStatus(software, currentStatus) {
       axios.put('/resource/dynamic/software/' + software.softwareId + '/status/' + currentStatus)
         .then(response => {
@@ -94,23 +108,13 @@ export default {
     },
     choseSoftware(software) {
       this.$emit('selectSoftware', software);
+    },
+    refreshSoftwares() {
+      this.fillSoftwares();
     }
   },
   created: function() {
-    axios.get('/resource/dynamic/manager/softwares/type/debugger')
-      .then(response => {
-        this.debugSoftwares = response.data.content;
-      })
-      .catch(function(error) {
-        alert(response);
-      });
-    axios.get('/resource/dynamic/manager/softwares/type/updater')
-      .then(response => {
-        this.updateSoftwares = response.data.content;
-      })
-      .catch(function(error) {
-        alert(response);
-      });
+    this.fillSoftwares();
   },
   mounted: function() {
     this.showDimmer();

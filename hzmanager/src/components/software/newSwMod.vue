@@ -48,7 +48,7 @@
           </div>
           <div class="required field">
             <label>软件类别</label>
-            <select class="ui dropdown" v-model="createSoftwareForm.softwareType">
+            <select name="softwareType" class="ui dropdown" v-model="createSoftwareForm.softwareType">
               <option selected="selected" value="0">调试软件</option>
               <option value="1">升级软件</option>
             </select>
@@ -175,7 +175,7 @@
           </div>
         </div>
       </div>
-      <div class="ui negative icon message" v-show="message.title != '' || message.content != ''">
+      <div class="ui negative icon message" v-show="message.title != null || message.content != null">
         <i class="announcement icon"></i>
         <div class="content">
           <div class="header">{{ message.title }}</div>
@@ -349,11 +349,10 @@ export default {
           'branch': branch
         }).then(function(response) {
           $('#newSoftwareModal').modal('hide');
+          this.$emit('refreshSoftwares');
           this.toast.success('添加成功');
-        })
-        .catch(function(response) {
-          this.message.title = '失败';
-          this.message.content = '无法为您存入软件'
+        }.bind(this)).catch(function(response) {
+          alert(response);
         });
     }
   },
@@ -397,6 +396,11 @@ export default {
           }]
         },
         firstVersion: {
+          rules: [{
+            type: 'empty'
+          }]
+        },
+        softwareType: {
           rules: [{
             type: 'empty'
           }]

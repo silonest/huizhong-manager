@@ -151,25 +151,22 @@ export default {
       axios.get('/resource/dynamic/software/' + this.$route.query.sid + '/all/version')
         .then(response => {
           this.branchs = response.data.content;
-        })
-        .catch(function(error) {
+        }).catch(function(error) {
           alert(error);
         });
     },
     submit() {
       axios.put('/resource/dynamic/branch/note/' + this.currentNote.noteId, {
-          note: {
-            'branchName': this.$refs.versionName.value,
-            'branchNote': this.$refs.versionIntroduction.value
-          },
-          'branchApkBase64': this.branchApk
-        })
-        .then(response => {
-          $('.allversion.ui.modal').modal('hide');
-        })
-        .catch(function(error) {
-          alert(error);
-        });
+        note: {
+          'branchName': this.$refs.versionName.value,
+          'branchNote': this.$refs.versionIntroduction.value
+        },
+        'branchApkBase64': this.branchApk
+      }).then(response => {
+        $('.allversion.ui.modal').modal('hide');
+      }).catch(function(error) {
+        alert(error);
+      });
     }
   },
   mounted: function() {

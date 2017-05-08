@@ -5,16 +5,16 @@
     <div class="lightgray" style="flex:none;width:320px;">
       <div class="ui compact dividing rail" style="width:320px;">
         <div class="software controller ui fixed top sticky" style="margin-top:50px;">
-          <sw-controller v-bind:selectedSoftware="selectedSw" v-on:showNewSwMod="showNewSwMod" v-on:showNewVerMod="showNewVerMod" style="width:300px;margin: 14px 10px;"></sw-controller>
+          <sw-controller v-bind:selectedSoftware="selectedSw" v-on:showNewSwMod="showNewSwMod" v-on:showNewVerMod="showNewVerMod" ref="controller" style="width:300px;margin: 14px 10px;"></sw-controller>
         </div>
       </div>
     </div>
     <div class="container" style="flex:1 1 auto;">
-      <sw-container v-on:selectSoftware="selectSoftware" style="margin: 14px 20px;"></sw-container>
+      <sw-container v-on:selectSoftware="selectSoftware" style="margin: 14px 20px;" ref="container"></sw-container>
     </div>
   </div>
-  <sw-mod-new ref="newSwMod"></sw-mod-new>
-  <ver-mod-new ref="newVerMod"></ver-mod-new>
+  <sw-mod-new v-on:refreshSoftwares="refreshSoftwares" ref="newSwMod"></sw-mod-new>
+  <ver-mod-new :software="selectedSw" v-on:refreshVersions="refreshVersions" ref="newVerMod"></ver-mod-new>
 </div>
 </template>
 <script>
@@ -44,6 +44,12 @@ export default {
     },
     selectSoftware(software) {
       this.selectedSw = software;
+    },
+    refreshSoftwares() {
+      this.$refs.container.refreshSoftwares();
+    },
+    refreshVersions() {
+      this.$refs.controller.refreshVersions();
     }
   },
   mounted: function() {

@@ -16,7 +16,7 @@
   </div>
   <!--点击软件后显示的操作区，如果不点击软件，则给出提示消息。-->
 
-  <div class="ui basic segment" style="padding:0px;"  v-show="selectedSoftware != null && selectedSoftware.softwareId != null && selectedSoftware.softwareId != ''">
+  <div class="ui basic segment" style="padding:0px;" v-show="selectedSoftware != null && selectedSoftware.softwareId != null && selectedSoftware.softwareId != ''">
     <div id="softwareControllerTab" class="ui pointing secondary menu">
       <a class="item active" data-tab="version">最近版本</a>
       <a class="item" data-tab="role">关联角色</a>
@@ -94,27 +94,30 @@ export default {
   watch: {
     //给传入的软件绑定监听事件，当参数发生变化时，重新查询数据
     selectedSoftware: function() {
+      this.fillRoles();
+      this.fillVersions();
+    }
+  },
+  methods: {
+    fillVersions() {
       axios.get('/resource/dynamic/software/' + this.selectedSoftware.softwareId + '/latest/version')
         .then(response => {
           let branchs = new Object();
           branchs.count = response.data.content.totalCount;
           branchs.items = response.data.content.branchs;
           this.branchs = branchs;
-        })
-        .catch(function(error) {
+        }).catch(function(error) {
           alert(error);
         });
-
+    },
+    fillRoles() {
       axios.get('/resource/dynamic/software/' + this.selectedSoftware.softwareId + '/latest/role')
         .then(response => {
           this.roles = response.data.content;
-        })
-        .catch(function(error) {
+        }).catch(function(error) {
           alert(error);
         });
-    }
-  },
-  methods: {
+    },
     showNewSwMod() {
       this.$emit('showNewSwMod');
     },
@@ -128,6 +131,9 @@ export default {
           sid: softwareId
         }
       });
+    },
+    refreshVersions() {
+      this.fillVersions();
     }
   },
   mounted: function() {

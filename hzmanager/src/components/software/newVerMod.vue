@@ -130,7 +130,6 @@ export default {
         for (let index = 0; index < this.createVersionForm.versionGlobal.length; index++) {
           if (this.createVersionForm.versionGlobal[index].flagName == versionGlobal.flagName) {
             isAdd = false;
-            ``
           }
         }
         if (isAdd) {
@@ -188,18 +187,20 @@ export default {
             branchNote: this.createVersionForm.versionGlobal[index].versionIntroduction
           });
         }
-        axios.post('/resource/dynamic/software/' + this.software.softwareId + '/branch', {
-            branchVersion: versionName,
-            branchApkBase64: this.createVersionForm.versionApk,
-            notes: branchNote
-          })
-          .then(function(response) {
-            alert(1);
-          })
-          .catch(function(response) {
-            alert(response);
-            alert(2);
-          });
+        let softwareId = this.software.softwareId;
+        axios.post('/resource/dynamic/software/' + softwareId + '/branch', {
+          branchVersion: versionName,
+          branchApkBase64: this.createVersionForm.versionApk,
+          notes: branchNote
+        }).then(function(response) {
+          if (response.data.status == "SUCCESS") {
+            $('.version.ui.modal').modal('hide');
+            this.$emit('refreshVersions');
+            this.toast.success('添加成功');
+          }
+        }.bind(this)).catch(function(response) {
+          alert(response);
+        });
       } else {
         $('.version.ui.modal').modal('refresh');
       }
