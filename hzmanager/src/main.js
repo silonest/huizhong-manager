@@ -91,6 +91,34 @@ Vue.prototype.toast = {
     })
   }
 }
+
+Vue.prototype.file = {
+  encode: function(input) {
+    let file = input.files[0];
+    let result = new Object();
+    result.status = 'ERR';
+    let supportedTypes = ['image/jpg', 'image/jpeg', 'image/png'];
+    if (file && supportedTypes.indexOf(file.type) >= 0) {
+      let reader = new FileReader();
+      reader.onloadend = function(e) {
+        result.chars = e.target.result;
+      };
+      reader.readAsDataURL(file);
+      let filePath = input.value;
+      result.path = filePath.substring(filePath.lastIndexOf("\\") + 1);
+      result.status = 'SUCCESS';
+    } else {
+      result.status = 'ILLEGAL';
+    }
+    return result
+  }
+}
+
+Vue.prototype.str = {
+  isEmpty: function(str){
+    return str == '' || str == null || str == undefined ? true : false;
+  }
+}
 //定义路径
 const routes = [{
     path: '/',

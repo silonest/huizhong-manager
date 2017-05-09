@@ -13,7 +13,8 @@
       </a>
       <a id="apply" class="item" style="height:50px;" href="#/inspector" :class="(waitingCount.licenceCount + waitingCount.passCount) > 0 ? 'red' : null">
         <i class="mail icon" style="top:0px;bottom:0px;" :style="(waitingCount.licenceCount + waitingCount.passCount) > 0 ? {color: '#FFFFFF'} : null"></i>
-        <template v-if="(waitingCount.licenceCount + waitingCount.passCount) > 0">{{waitingCount.licenceCount + waitingCount.passCount}}</template>
+        <template v-if="(waitingCount.licenceCount + waitingCount.passCount) > 0">{{waitingCount.licenceCount + waitingCount.passCount}}
+</template>
       </a>
     </div>
   </div>
@@ -117,6 +118,20 @@ export default {
 .buttongreen {
   background-color: #40A977 !important;
   background: #40A977 !important;
+}
+
+.card.normal {
+  width: 190px !important;
+}
+
+.card>.image {
+  height: 190px !important;
+  width: 190px !important;
+}
+
+.card>.image>.image {
+  height: 190px !important;
+  width: 190px !important;
 }
 
 img {

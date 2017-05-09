@@ -148,7 +148,7 @@
     <!--第三步的内容-->
     <div class="ui attached segment" v-show="stepShow.stepThreeActiveClass == 'active'" v-refresh>
       <div class="ui icon ignored info message" style="margin-bottom:30px;">
-        <i class="close icon"></i>'
+        <i class="close icon"></i>
         <i class="grey talk icon"></i>
         <div class="content">
           <p>
@@ -342,7 +342,7 @@ export default {
         });
       }
       branch.notes = branchNote;
-      axios.post('/resource/dynamic/software', {
+      axios.post('/resource/dynamic/manager/software/branch', {
           'softwareImgBase64': this.createSoftwareForm.softwareImg,
           'softwareType': this.createSoftwareForm.softwareType,
           'notes': softwareNote,

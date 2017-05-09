@@ -14,12 +14,14 @@
     </div>
   </div>
   <sw-mod-new v-on:refreshSoftwares="refreshSoftwares" ref="newSwMod"></sw-mod-new>
+  <sw-creater ref="creater"></sw-creater>
   <ver-mod-new :software="selectedSw" v-on:refreshVersions="refreshVersions" ref="newVerMod"></ver-mod-new>
 </div>
 </template>
 <script>
 import controller from './controller.vue';
 import container from './container.vue';
+import creater from './creater.vue';
 import newSwMod from './newSwMod.vue';
 import newVerMod from './newVerMod.vue';
 
@@ -32,12 +34,14 @@ export default {
   components: {
     'sw-container': container,
     'sw-controller': controller,
+    'sw-creater': creater,
     'ver-mod-new': newVerMod,
     'sw-mod-new': newSwMod
   },
   methods: {
     showNewSwMod() {
-      this.$refs.newSwMod.show();
+      //this.$refs.newSwMod.show();
+      this.$refs.creater.show();
     },
     showNewVerMod() {
       this.$refs.newVerMod.show();

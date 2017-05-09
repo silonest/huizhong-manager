@@ -18,7 +18,7 @@
       </div>
     </div>
     <div class="twelve wide column" style="border-left:1px solid #DDDEDE;">
-      <div class="ui cards">
+      <div class="ui link cards">
         <div class="ui card" v-for="(item,index) in roles" v-if="item.roleLevel == 2">
           <div class="content" v-on:click="choseRole(item)">
             <div class="header">{{item.roleName}}</div>

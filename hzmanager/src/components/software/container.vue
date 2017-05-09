@@ -4,8 +4,8 @@
 
   <div class="ui link six cards" v-if="debugSoftwares.length != 0">
     <!--卡片-->
-    <div class="yellow card" style="width:190px;" v-for="(item,index) in debugSoftwares">
-      <div class="blurring image" v-if="item.softwareUseFlag == 0"><img class="image" style="width 190px;height: 190px" :src="'/resource/static/' + item.softwareImg" v-on:click="choseSoftware()" />
+    <div class="yellow normal card" v-for="(item,index) in debugSoftwares">
+      <div class="blurring image" v-if="item.softwareUseFlag == 0"><img class="image" :src="'/resource/static/' + item.softwareImg" v-on:click="choseSoftware()" />
         <div class="rounded ui dimmer" style="border-radius:5px 5px 0px 0px;" @click="choseSoftware(item)">
           <div class="content">
             <div class="center">
@@ -14,10 +14,11 @@
           </div>
         </div>
       </div>
-      <img class="image" style="height: 190px" :src="'/resource/static/' + item.softwareImg" v-else @click="choseSoftware(item)" />
+      <img class="image" :src="'/resource/static/' + item.softwareImg" v-else @click="choseSoftware(item)" />
       <div class="content" v-on:click="choseSoftware(item)">
         <div class="header">{{item.note.softwareName}}</div>
-        <div class="meta">当前版本:{{item.branch.branchVersion}}</div>
+        <div class="meta">当前版本 : {{item.branch.branchVersion}}</div>
+        <div class="meta">语言 : <i class="flag" v-for="flag in item.language" :class="flag | transferLanguageToFlag"></i></div>
         <div class="description">{{item.note.softwareNote}}</div>
       </div>
       <div class="extra content">
@@ -48,6 +49,7 @@
       <div class="content">
         <div class="header">{{item.note.softwareName}}</div>
         <div class="meta">当前版本:{{item.branch.branchVersion}}</div>
+        <div class="meta">语言 : <i class="flag" v-for="flag in item.language" :class="flag | transferLanguageToFlag"></i></div>
         <div class="description">{{item.note.softwareNote}}</div>
       </div>
       <div class="extra content">
@@ -107,8 +109,10 @@ export default {
         .then(response => {
           if (currentStatus == 'used') {
             software.softwareUseFlag = 1;
+            this.toast.success('已启用');
           } else if (currentStatus == 'useless') {
             software.softwareUseFlag = 0;
+            this.toast.success('已停用');
           }
         }).catch(function(error) {
           alert(error);

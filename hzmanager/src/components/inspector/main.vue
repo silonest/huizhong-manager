@@ -145,9 +145,8 @@ export default {
           this.toast.success('已通过审核');
           this.licences.splice(index, 1);
           this.waitingCount.licenceCount--;
-        })
-        .catch(function(error) {
-          alert(response);
+        }).catch(function(error) {
+          alert(error);
         });
     },
     licenceDecline(licenceId, index) {
@@ -162,9 +161,8 @@ export default {
             this.toast.success('已拒绝');
             this.licences.splice(index, 1);
             this.waitingCount.licenceCount--;
-          })
-          .catch(function(error) {
-            alert(response);
+          }).catch(function(error) {
+            alert(error);
           });
       }
     }
