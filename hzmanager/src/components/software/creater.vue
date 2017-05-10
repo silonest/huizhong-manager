@@ -205,9 +205,10 @@ export default {
         'softwareType': this.buffer.type,
         'notes': softwareNotes
       }).then(function(response) {
+        this.$emit('refreshSoftwares');
         $('#software_creater').modal('hide');
         $('#creater_result').modal('show');
-      }).catch(function(response) {
+      }.bind(this)).catch(function(response) {
         alert(response);
       });
     }

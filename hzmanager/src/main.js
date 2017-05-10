@@ -56,7 +56,6 @@ Vue.filter('isEmpty', function(e) {
 Vue.prototype.toast = {
   success: function(content) {
     $.toast({
-      heading: '成功',
       text: content,
       icon: 'success',
       showHideTransition: 'fade', // It can be plain, fade or slide
@@ -68,7 +67,6 @@ Vue.prototype.toast = {
   },
   error: function(content) {
     $.toast({
-      heading: '失败',
       text: content,
       icon: 'error',
       showHideTransition: 'fade', // It can be plain, fade or slide
@@ -80,7 +78,6 @@ Vue.prototype.toast = {
   },
   info: function(content) {
     $.toast({
-      heading: '成功',
       text: content,
       icon: 'info',
       showHideTransition: 'fade', // It can be plain, fade or slide

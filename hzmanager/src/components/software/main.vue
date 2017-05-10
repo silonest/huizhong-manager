@@ -13,8 +13,8 @@
       <sw-container v-on:selectSoftware="selectSoftware" style="margin: 14px 20px;" ref="container"></sw-container>
     </div>
   </div>
-  <sw-mod-new v-on:refreshSoftwares="refreshSoftwares" ref="newSwMod"></sw-mod-new>
-  <sw-creater ref="creater"></sw-creater>
+  <!-- <sw-mod-new v-on:refreshSoftwares="refreshSoftwares" ref="newSwMod"></sw-mod-new> -->
+  <sw-creater v-on:refreshSoftwares="refreshSoftwares" ref="creater"></sw-creater>
   <ver-mod-new :software="selectedSw" v-on:refreshVersions="refreshVersions" ref="newVerMod"></ver-mod-new>
 </div>
 </template>
