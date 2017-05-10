@@ -17,12 +17,12 @@
       <img class="image" :src="'/resource/static/' + item.softwareImg" v-else @click="choseSoftware(item)" />
       <div class="content" v-on:click="choseSoftware(item)">
         <div class="header">{{item.note.softwareName}}</div>
-        <div class="meta">当前版本 : {{item.branch.branchVersion}}</div>
+        <div class="meta">当前版本 : {{item.branch == null ? 'N/A' : item.branch.branchVersion}}</div>
         <div class="meta">语言 : <i class="flag" v-for="flag in item.language" :class="flag | transferLanguageToFlag"></i></div>
         <div class="description">{{item.note.softwareNote}}</div>
       </div>
       <div class="extra content">
-        <a :href="'/resource/static/' + item.branch.note.branchAddr" download><i class="download icon" data-content="下载"></i></a>
+        <a :href="'/resource/static/' + item.branch.note.branchAddr" download v-if="item.branch != null"><i class="download icon" data-content="下载"></i></a>
         <a v-if="item.softwareUseFlag == 0"><i class="play icon" data-content="启用" @click="changeSoftwareStatus(item,'used')"></i></a>
         <a v-else><i class="pause icon" data-content="停用" @click="changeSoftwareStatus(item,'useless')"></i></a>
         <a><i class="remove icon" data-content="删除" @click="showDeleteSwChoseMod(item,index)"></i></a>
@@ -48,12 +48,12 @@
       <img class="image" style="height: 190px" :src="'/resource/static/' + item.softwareImg" v-else @click="choseSoftware(item)" />
       <div class="content">
         <div class="header">{{item.note.softwareName}}</div>
-        <div class="meta">当前版本:{{item.branch.branchVersion}}</div>
+        <div class="meta">当前版本:{{item.branch == null ? 'N/A' : item.branch.branchVersion}}</div>
         <div class="meta">语言 : <i class="flag" v-for="flag in item.language" :class="flag | transferLanguageToFlag"></i></div>
         <div class="description">{{item.note.softwareNote}}</div>
       </div>
       <div class="extra content">
-        <a :href="'/resource/static/' + item.branch.note.branchAddr" download><i class="download icon" data-content="下载"></i></a>
+        <a :href="'/resource/static/' + item.branch.note.branchAddr" download v-if="item.branch != null"><i class="download icon" data-content="下载"></i></a>
         <a v-if="item.softwareUseFlag == 0"><i class="play icon" data-content="启用" v-on:click="changeSoftwareStatus(item,'used')"></i></a>
         <a v-else><i class="pause icon" data-content="停用" v-on:click="changeSoftwareStatus(item,'useless')"></i></a>
         <a><i class="remove icon" data-content="删除" @click="showDeleteSwChoseMod(item,index)"></i></a>
