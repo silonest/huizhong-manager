@@ -130,7 +130,7 @@ export default {
 
 .ui.attached.info.message,
 .ui.info.message {
-  box-shadow: 0 0 0 1px #339ABF inset, 0 0 0 0 transparent;
+  box-shadow: 0 0 0 1.1px #339ABF inset, 0 0 0 0 transparent;
 }
 
 .ui.info.message {
@@ -151,6 +151,11 @@ export default {
   border-color: #C43627!important;
 }
 
+.green {
+  background-color: #4CC759!important;
+  border-color: #4CC759!important;
+}
+
 .ui.card>.extra a:not(.ui):hover, .ui.cards>.card>.extra a:not(.ui):hover {
     color: #2185d0;
 }
@@ -160,11 +165,6 @@ export default {
 }
 .ui.modal>.header {
   color: #584B4F;
-}
-
-.green {
-  background-color: #4CC759!important;
-  border-color: #4CC759!important;
 }
 
 img {

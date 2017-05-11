@@ -1,7 +1,6 @@
 <template>
 <div id="container" class="ui basic segment">
   <h4 class="ui horizontal header divider"><i class="bug icon"></i>调试软件</h4>
-
   <div class="ui link six cards" v-if="debugSoftwares.length != 0">
     <!--卡片-->
     <div class="yellow normal card" v-for="(item,index) in debugSoftwares">

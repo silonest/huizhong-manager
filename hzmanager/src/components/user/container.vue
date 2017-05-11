@@ -1,10 +1,6 @@
 <template>
 <div class="ui basic segment">
-  <h4 class="ui header">
-    <i class="users icon"></i>
-    <div class="content">用户管理<div class="sub header">管理系统中的所有用户</div></div>
-  </h4>
-  <div class="ui divider"></div>
+  <h4 class="ui horizontal header divider"><i class="user icon"></i>所有用户</h4>
   <table class="ui yellow striped table" style="width:100%;height:auto;">
     <thead class="full-width">
       <tr>
