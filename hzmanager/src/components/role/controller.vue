@@ -24,7 +24,7 @@
       <div class="right item" style="padding:8px 5px;" v-if="selectedRole.roleName != null"><div class="ui label">{{ selectedRole.roleName }}</div></div>
     </div>
     <div class="active ui bottom tab basic segment" data-tab="debugger" style="padding:0px;margin-bottom:0px;">
-      <div class="ui mini icon ignored yellow message" v-if="debuggers.length == 0">
+      <div class="ui mini icon ignored yellow message" v-if="debuggers == null || debuggers.length == 0">
         <i class="info grey icon"></i>没有可用软件，如果您添加了软件，但在此列表中不显示，请确认软件是否启用。
       </div>
       <table class="ui small compact single line table" v-else>
@@ -55,7 +55,7 @@
       </div> -->
     </div>
     <div class="ui bottom tab basic segment" data-tab="updater" style="padding:0;margin-bottom:0px;">
-      <div class="ui mini icon ignored yellow message" v-if="updaters.length == 0">
+      <div class="ui mini icon ignored yellow message" v-if="updaters == null || updaters.length == 0">
         <i class="info grey icon"></i>没有可用软件，如果您添加了软件，但在此列表中不显示，请确认软件是否启用。
       </div>
       <table class="ui small compact single line table" v-else>
