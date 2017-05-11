@@ -22,7 +22,7 @@
       <a class="item" data-tab="role">关联角色</a>
     </div>
     <!--分支的快捷操作-->
-    <div class="active ui bottom attached tab segment" data-tab="version" style="height:215px;padding:10px;margin-bottom:0px;">
+    <div class="active ui bottom attached tab segment" data-tab="version" style="height:285px;padding:10px;margin-bottom:0px;">
       <div class="ui mini icon ignored info message">
         <i class="info grey icon"></i>快捷菜单只显示当前版本。
       </div>
