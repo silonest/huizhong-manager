@@ -158,7 +158,9 @@ export default {
 .ui.header{
   color:#584B4F;
 }
-
+.ui.modal>.header {
+  color: #584B4F;
+}
 
 .green {
   background-color: #4CC759!important;
