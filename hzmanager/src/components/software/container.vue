@@ -46,7 +46,7 @@
         </div>
       </div>
       <img class="image" style="height: 190px" :src="'/resource/static/' + item.softwareImg" v-else @click="choseSoftware(item)" />
-      <div class="content">
+      <div class="content" v-on:click="choseSoftware(item)">
         <div class="header">{{item.note.softwareName}}</div>
         <div class="meta">当前版本:{{item.branch == null ? 'N/A' : item.branch.branchVersion}}</div>
         <div class="meta">语言 : <i class="flag" v-for="flag in item.language" :class="flag | transferLanguageToFlag"></i></div>

@@ -77,7 +77,7 @@
       </div>
     </div>
     <div class="actions" style="padding:10px;">
-      <div class="ui green right loadding labeled icon button" :class="{'disabled': buffer.notes.length == 0 || buffer.image.path == '' || buffer.image.chars == ''}" @click="submit()"><i class="checkmark right icon"></i>新增软件</div>
+      <div class="ui green right labeled icon button" :class="{'disabled': buffer.notes.length == 0 || buffer.image.path == '' || buffer.image.chars == ''}" @click="submit()"><i class="checkmark right icon"></i>新增软件</div>
     </div>
   </div>
   <div id="creater_result" class="ui modal">
@@ -141,7 +141,7 @@ export default {
       this.$refs.choseImageFileInput.click();
     },
     addImageDataToBuffer(event) {
-      var imageData = this.file.encode(event.target);
+      var imageData = this.file.encodeImage(event.target);
       if (imageData.status == 'SUCCESS') {
         this.$refs.softwareImageInput.value = imageData.path;
         this.buffer.image = imageData;

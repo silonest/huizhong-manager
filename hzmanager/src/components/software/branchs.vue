@@ -30,8 +30,6 @@
               <td>{{item.branchUtime}}</td>
               <td>
                 <div class="ui small basic icon buttons">
-                  <button class="ui button" v-show="item.branchUseFlag != 1"><i class="check icon"></i></button>
-                  <button class="ui button"><i class="remove icon"></i></button>
                   <button class="ui button" @click="editVersion(item.notes[0])"><i class="edit icon"></i></button>
                   <a class="ui button" :href="'/resource/static/' + item.notes[0].branchAddr" download><i class="download icon"></i></a>
                 </div>
@@ -49,8 +47,6 @@
                 <td>{{item.branchUtime}}</td>
                 <td>
                   <div class="ui small basic icon buttons">
-                    <button class="ui button" v-show="item.branchUseFlag != 1"><i class="check icon"></i></button>
-                    <button class="ui button"><i class="remove icon"></i></button>
                     <button class="ui button" @click="editVersion(note)"><i class="edit icon"></i></button>
                     <a class="ui button" :href="'/resource/static/' + note.branchAddr" download><i class="download icon"></i></a>
                   </div>
@@ -64,8 +60,6 @@
                 <td>{{item.branchUtime}}</td>
                 <td>
                   <div class="ui small basic icon buttons">
-                    <button class="ui button" v-show="item.branchUseFlag != 1"><i class="check icon"></i></button>
-                    <button class="ui button"><i class="remove icon"></i></button>
                     <button class="ui button" @click="editVersion(note)"><i class="edit icon"></i></button>
                     <a class="ui button" :href="'/resource/static/' + note.branchAddr" download><i class="download icon"></i></a>
                   </div>

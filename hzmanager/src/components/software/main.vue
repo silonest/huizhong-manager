@@ -5,7 +5,7 @@
     <div class="lightgray" style="flex:none;width:320px;">
       <div class="ui compact dividing rail" style="width:320px;">
         <div class="software controller ui fixed top sticky" style="margin-top:50px;">
-          <sw-controller v-bind:selectedSoftware="selectedSw" v-on:showNewSwMod="showNewSwMod" v-on:showNewVerMod="showNewVerMod" ref="controller" style="width:300px;margin: 14px 10px;"></sw-controller>
+          <sw-controller v-bind:selectedSoftware="selectedSw" v-on:showNewSwMod="showCreater" v-on:showNewVerMod="showBinder" ref="controller" style="width:300px;margin: 14px 10px;"></sw-controller>
         </div>
       </div>
     </div>
@@ -14,16 +14,18 @@
     </div>
   </div>
   <!-- <sw-mod-new v-on:refreshSoftwares="refreshSoftwares" ref="newSwMod"></sw-mod-new> -->
+  <!-- <ver-mod-new :software="selectedSw" v-on:refreshVersions="refreshVersions" ref="newVerMod"></ver-mod-new> -->
   <sw-creater v-on:refreshSoftwares="refreshSoftwares" ref="creater"></sw-creater>
-  <ver-mod-new :software="selectedSw" v-on:refreshVersions="refreshVersions" ref="newVerMod"></ver-mod-new>
+  <sw-binder v-if="selectedSw.softwareId != null" :software="selectedSw" v-on:refreshVersions="refreshVersions" ref="binder"></sw-binder>
 </div>
 </template>
 <script>
 import controller from './controller.vue';
 import container from './container.vue';
 import creater from './creater.vue';
-import newSwMod from './newSwMod.vue';
-import newVerMod from './newVerMod.vue';
+import binder from './binder.vue'
+// import newSwMod from './newSwMod.vue';
+// import newVerMod from './newVerMod.vue';
 
 export default {
   data() {
@@ -35,16 +37,18 @@ export default {
     'sw-container': container,
     'sw-controller': controller,
     'sw-creater': creater,
-    'ver-mod-new': newVerMod,
-    'sw-mod-new': newSwMod
+    'sw-binder': binder
+    //'ver-mod-new': newVerMod
+    // 'sw-mod-new': newSwMod
   },
   methods: {
-    showNewSwMod() {
+    showCreater() {
       //this.$refs.newSwMod.show();
       this.$refs.creater.show();
     },
-    showNewVerMod() {
-      this.$refs.newVerMod.show();
+    showBinder() {
+      // this.$refs.newVerMod.show();
+      this.$refs.binder.show();
     },
     selectSoftware(software) {
       this.selectedSw = software;

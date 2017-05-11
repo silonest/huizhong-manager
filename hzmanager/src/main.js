@@ -40,9 +40,9 @@ Vue.filter('transferLanguageToStr', function(language) {
     case 'zh':
       return '中文';
     case 'en':
-      return 'English';
+      return '英文';
     case 'fr':
-      return 'France';
+      return '法文';
     default:
       '中文'
   }
@@ -90,7 +90,7 @@ Vue.prototype.toast = {
 }
 
 Vue.prototype.file = {
-  encode: function(input) {
+  encodeImage: function(input) {
     let file = input.files[0];
     let result = new Object();
     result.status = 'ERR';
@@ -108,11 +108,25 @@ Vue.prototype.file = {
       result.status = 'ILLEGAL';
     }
     return result
+  },
+  encodeApk: function(input) {
+    let file = input.files[0];
+    let result = new Object();
+    result.status = 'ERR';
+    let reader = new FileReader();
+    reader.onloadend = function(e) {
+      result.chars = e.target.result;
+    };
+    reader.readAsDataURL(file);
+    let filePath = input.value;
+    result.path = filePath.substring(filePath.lastIndexOf("\\") + 1);
+    result.status = 'SUCCESS';
+    return result
   }
 }
 
 Vue.prototype.str = {
-  isEmpty: function(str){
+  isEmpty: function(str) {
     return str == '' || str == null || str == undefined ? true : false;
   }
 }
