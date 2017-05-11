@@ -1,38 +1,23 @@
 <template>
 <div class="ui basic segment">
   <h4 class="ui horizontal header divider">所有角色</h4>
-  <table class="ui yellow striped table" <div class="ui grid">
-    <div class="four wide column">
-      <div class="ui link cards">
-        <div class="ui card" v-for="(item,index) in roles" v-if="item.roleLevel == 1">
-          <div class="content" v-on:click="choseRole(item)">
-            <i class="left floated ui pin icon"></i>
-            <div class="header">{{item.roleName}}</div>
-            <div class="description">{{item.roleIntroduction}}</div>
-          </div>
-          <div class="extra content">
-            <a v-if="item.roleUseFlag == 0" @click="changeRoleStatus(item,'used',index)"><i class="play icon" data-content="启用"></i></a>
-            <a v-else @click="changeRoleStatus(item,'unused',index)"><i class="pause icon" data-content="停用"></i></a>
-          </div>
-        </div>
+  <div class="ui five link cards">
+    <div class="ui card" v-for="(item,index) in roles" :class="{blue:item.roleLevel == 1}">
+      <div class="content" style="padding: 10px 10px;" v-on:click="choseRole(item)">
+        <i class="right floated ui pin icon" v-if="item.roleLevel == 1"></i>
+        <!-- <div class="right floated meta">
+          <a class="ui blue empty circular label"></a>
+        </div> -->
+        <div class="header">{{item.roleName}}</div>
+        <div class="description">{{item.roleIntroduction}}</div>
+      </div>
+      <div class="extra content" style="background:#F6F8FA;">
+        <a v-if="item.roleUseFlag == 0" @click="changeRoleStatus(item,'used',index)"><i class="play icon" data-content="启用"></i></a>
+        <a v-else @click="changeRoleStatus(item,'unused',index)"><i class="pause icon" data-content="停用"></i></a>
+        <a v-if="item.roleLevel == 2" @click="changeRoleStatus(item,'disable',index)"><i class="remove icon" data-content="删除"></i></a>
       </div>
     </div>
-    <div class="twelve wide column" style="border-left:1px solid #DDDEDE;">
-      <div class="ui link cards">
-        <div class="ui card" v-for="(item,index) in roles" v-if="item.roleLevel == 2">
-          <div class="content" v-on:click="choseRole(item)">
-            <div class="header">{{item.roleName}}</div>
-            <div class="description">{{item.roleIntroduction}}</div>
-          </div>
-          <div class="extra content">
-            <a v-if="item.roleUseFlag == 0" @click="changeRoleStatus(item,'used',index)"><i class="play icon" data-content="启用"></i></a>
-            <a v-else @click="changeRoleStatus(item,'unused',index)"><i class="pause icon" data-content="停用"></i></a>
-            <a @click="changeRoleStatus(item,'disable',index)"><i class="remove icon" data-content="删除"></i></a>
-          </div>
-        </div>
-      </div>
-    </div>
-</div>
+  </div>
 </div>
 </template>
 <script>

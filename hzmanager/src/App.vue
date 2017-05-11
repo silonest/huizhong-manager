@@ -1,7 +1,7 @@
 <template>
 <div id="app" class="full compact">
   <!--导航菜单-->
-  <div id="header" class="ui top fixed inverted main menu" style="top:0px;height:50px;background-color: #584B4F;">
+  <div id="header" class="ui top fixed inverted main menu" style="top:0px;height:50px;background-color: #424E69;">
     <div class="header item" style="color:#EEEAE1;font-size:17px;">汇 中</div>
     <a class="click item" style="color:#EEEAE1;font-size:15px;" href="#/">软件管理</a>
     <a class="click item" style="color:#EEEAE1;font-size:15px;" href="#/user"> 用户管理</a>
@@ -85,12 +85,6 @@ export default {
   background-color: #C43627!important;
 }
 
-.ui.read.label,
-.ui.read.labels .label {
-  background-color: #C43627!important;
-  border-color: #C43627!important;
-}
-
 .full {
   width: 100% !important;
   height: 100% !important;
@@ -132,6 +126,43 @@ export default {
 .card>.image>.image {
   height: 190px !important;
   width: 190px !important;
+}
+
+.ui.attached.info.message,
+.ui.info.message {
+  box-shadow: 0 0 0 1px #339ABF inset, 0 0 0 0 transparent;
+}
+
+.ui.info.message {
+  background-color: #F6F8FA;
+  color: #339ABF;
+}
+
+.ui.info.message .header {
+  color: #339ABF;
+}
+
+.blue {
+  color: #2185d0!important;
+}
+
+.red {
+  background-color: #C43627!important;
+  border-color: #C43627!important;
+}
+
+.ui.card>.extra a:not(.ui):hover, .ui.cards>.card>.extra a:not(.ui):hover {
+    color: #2185d0;
+}
+
+.ui.header{
+  color:#584B4F;
+}
+
+
+.green {
+  background-color: #4CC759!important;
+  border-color: #4CC759!important;
 }
 
 img {

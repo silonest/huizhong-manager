@@ -21,7 +21,7 @@
         <div class="meta">语言 : <i class="flag" v-for="flag in item.language" :class="flag | transferLanguageToFlag"></i></div>
         <div class="description">{{item.note.softwareNote}}</div>
       </div>
-      <div class="extra content">
+      <div class="extra content" style="background:#F6F8FA;">
         <a :href="'/resource/static/' + item.branch.note.branchAddr" download v-if="item.branch != null"><i class="download icon" data-content="下载"></i></a>
         <a v-if="item.softwareUseFlag == 0"><i class="play icon" data-content="启用" @click="changeSoftwareStatus(item,'used')"></i></a>
         <a v-else><i class="pause icon" data-content="停用" @click="changeSoftwareStatus(item,'useless')"></i></a>
