@@ -44,8 +44,8 @@
           </div>
           <img class="ui middle aligned avatar image" :src="'/resource/static/' + selectedSoftware.softwareImg">
           <div class="content">
-            <div class="header">{{branch.item.branchVersion}}@{{item.branchName}}</div>
-            <div class="description">{{item.branchNote | substr(13)}}</div>
+            <div class="header">{{branch.item.branchVersion}}@{{item.branchName | substr(15)}}</div>
+            <div class="description">{{item.branchNote | substr(15)}}</div>
           </div>
         </div>
       </div>
