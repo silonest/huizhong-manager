@@ -14,18 +14,24 @@
       <div class="ui button" @click="showNewRoleMod()">新增角色</div>
     </div>
   </div>
-  <div class="ui basic segment" style="padding:0px;">
+  <div class="ui icon info message" v-show="selectedRole == null || selectedRole.roleId == null || selectedRole.roleId == ''">
+    <i class="info grey icon"></i> 选择角色后可以快捷操作角色关联的软件。
+  </div>
+  <div class="ui basic segment" style="padding:0px;" v-show="selectedRole != null && selectedRole.roleId != null && selectedRole.roleId != ''">
     <div id="roleControllerTab" class="ui pointing secondary menu">
       <a class="item active" data-tab="debugger">调试软件</a>
       <a class="item" data-tab="updater">升级软件</a>
-      <div class="right item" v-if="selectedRole.roleName != null">{{ selectedRole.roleName }}</div>
+      <div class="right item" style="padding:8px 5px;" v-if="selectedRole.roleName != null"><div class="ui label">{{ selectedRole.roleName }}</div></div>
     </div>
     <div class="active ui bottom tab basic segment" data-tab="debugger" style="padding:0px;margin-bottom:0px;">
-      <table class="ui small compact single line table">
+      <div class="ui mini icon ignored yellow message" v-if="debuggers.length == 0">
+        <i class="info grey icon"></i>没有可用软件，如果您添加了软件，但在此列表中不显示，请确认软件是否启用。
+      </div>
+      <table class="ui small compact single line table" v-else>
         <thead>
           <tr>
             <th>软件名</th>
-            <th>操作</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -49,7 +55,10 @@
       </div> -->
     </div>
     <div class="ui bottom tab basic segment" data-tab="updater" style="padding:0;margin-bottom:0px;">
-      <table class="ui small compact single line table">
+      <div class="ui mini icon ignored yellow message" v-if="updaters.length == 0">
+        <i class="info grey icon"></i>没有可用软件，如果您添加了软件，但在此列表中不显示，请确认软件是否启用。
+      </div>
+      <table class="ui small compact single line table" v-else>
         <thead>
           <tr>
             <th>软件名</th>
@@ -101,7 +110,7 @@ export default {
   },
   methods: {
     objArrayHandler(arry) {
-      if(arry != null){
+      if (arry != null) {
         for (let i = 0; i < arry.length; i++) {
           let obj = arry[i];
           if (obj.role != null && obj.role.roleId != null) {

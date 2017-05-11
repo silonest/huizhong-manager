@@ -14,6 +14,9 @@
       <div class="ui button" @click="showNewSwMod()">新增软件</div>
     </div>
   </div>
+  <div class="ui icon info message" v-show="selectedSoftware == null || selectedSoftware.softwareId == null || selectedSoftware.softwareId == ''">
+    <i class="info grey icon"></i> 选择软件后可以快捷操作软件版本和关联角色。
+  </div>
   <!-- <h5 class="ui center aligned icon header" v-if="selectedSoftware != null && selectedSoftware.note != null"><img class="ui centered medium image" :src="'/resource/static/' + selectedSoftware.softwareImg"> {{selectedSoftware.note.softwareName}} </h5> -->
   <!-- <h5 class="ui header"><img :src="'/resource/static/' + selectedSoftware.softwareImg" class="ui circular image"> {{selectedSoftware.note.softwareName}} </h5> -->
   <!--点击软件后显示的操作区，如果不点击软件，则给出提示消息。-->
@@ -55,7 +58,7 @@
       </div>
     </div>
     <!--关联角色的快捷操作-->
-    <div class="ui bottom attached tab segment" data-tab="role" style="height:400px;padding:0;margin-bottom:0px;">
+    <div class="ui bottom attached tab basic segment" data-tab="role" style="padding:0;margin-bottom:0px;">
       <table class="ui small compact single line table" style="margin:0;">
         <thead>
           <tr>
@@ -83,9 +86,6 @@
         </tbody>
       </table>
     </div>
-  </div>
-  <div class="ui icon ignored yellow message" v-show="selectedSoftware == null || selectedSoftware.softwareId == null || selectedSoftware.softwareId == ''">
-    <i class="info grey icon"></i> 选择软件后可以快捷操作软件版本和关联角色。
   </div>
 </div>
 </template>
