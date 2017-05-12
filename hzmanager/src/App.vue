@@ -146,7 +146,7 @@ export default {
   color: #2185d0!important;
 }
 
-.red {
+/*.red {
   background-color: #C43627!important;
   border-color: #C43627!important;
 }
@@ -154,7 +154,7 @@ export default {
 .green {
   background-color: #4CC759!important;
   border-color: #4CC759!important;
-}
+}*/
 
 .ui.card>.extra a:not(.ui):hover, .ui.cards>.card>.extra a:not(.ui):hover {
     color: #2185d0;
