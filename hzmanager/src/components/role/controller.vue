@@ -21,7 +21,9 @@
     <div id="roleControllerTab" class="ui pointing secondary menu">
       <a class="item active" data-tab="debugger">调试软件</a>
       <a class="item" data-tab="updater">升级软件</a>
-      <div class="right item" style="padding:8px 5px;" v-if="selectedRole.roleName != null"><div class="ui label">{{ selectedRole.roleName }}</div></div>
+      <div class="right item" style="padding:8px 5px;" v-if="selectedRole.roleName != null">
+        <div class="ui label">{{ selectedRole.roleName }}</div>
+      </div>
     </div>
     <div class="active ui bottom tab basic segment" data-tab="debugger" style="padding:0px;margin-bottom:0px;">
       <div class="ui mini icon ignored yellow message" v-if="debuggers == null || debuggers.length == 0">
@@ -70,7 +72,7 @@
             <td>{{ item.note.softwareName }}</td>
             <td class="collapsing">
               <div class="ui fitted slider checkbox">
-                <input type="checkbox" @click="changeCheckBox(item)"> <label></label>
+                <input type="checkbox" @click="changeCheckBox(item)" v-model="item.selected"> <label></label>
               </div>
             </td>
           </tr>
@@ -110,6 +112,7 @@ export default {
   },
   methods: {
     objArrayHandler(arry) {
+      console.log(arry);
       if (arry != null) {
         for (let i = 0; i < arry.length; i++) {
           let obj = arry[i];
@@ -122,6 +125,7 @@ export default {
         }
         return arry;
       }
+      console.log(arry);
     },
     changeCheckBox(software) {
       let bindType = software.selected ? "bind" : "unbind";
