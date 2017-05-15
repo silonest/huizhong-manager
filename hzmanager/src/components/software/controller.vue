@@ -17,6 +17,14 @@
   <div class="ui icon info message" v-show="selectedSoftware == null || selectedSoftware.softwareId == null || selectedSoftware.softwareId == ''">
     <i class="info grey icon"></i> 选择软件后可以快捷操作软件版本和关联角色。
   </div>
+  <!-- <div class="right item" style="padding:8px 5px;" v-if="selectedSoftware != null && selectedSoftware.note != null">
+    <div class="ui label">{{selectedSoftware.note.softwareName}}</div>
+  </div> -->
+  <div class="ui segment" v-if="selectedSoftware != null && selectedSoftware.note != null">
+    <img class="ui avatar image" :src="'/resource/static/' + selectedSoftware.softwareImg">
+    <span>{{selectedSoftware.note.softwareName}}</span>
+  </div>
+
   <!-- <h5 class="ui center aligned icon header" v-if="selectedSoftware != null && selectedSoftware.note != null"><img class="ui centered medium image" :src="'/resource/static/' + selectedSoftware.softwareImg"> {{selectedSoftware.note.softwareName}} </h5> -->
   <!-- <h5 class="ui header"><img :src="'/resource/static/' + selectedSoftware.softwareImg" class="ui circular image"> {{selectedSoftware.note.softwareName}} </h5> -->
   <!--点击软件后显示的操作区，如果不点击软件，则给出提示消息。-->
@@ -24,9 +32,6 @@
     <div id="softwareControllerTab" class="ui pointing secondary menu">
       <a class="item active" data-tab="version">最近版本</a>
       <a class="item" data-tab="role">关联角色</a>
-      <div class="right item" style="padding:8px 5px;" v-if="selectedSoftware != null && selectedSoftware.note != null">
-        <div class="ui label">{{selectedSoftware.note.softwareName}}</div>
-      </div>
     </div>
     <!--分支的快捷操作-->
     <div class="active ui bottom attached tab segment" data-tab="version" style="height:285px;padding:10px;margin-bottom:0px;">

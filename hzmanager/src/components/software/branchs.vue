@@ -158,6 +158,7 @@ export default {
         'branchApkBase64': this.branchApk
       }).then(response => {
         $('.allversion.ui.modal').modal('hide');
+        this.fillTable();
       }).catch(function(error) {
         alert(error);
       });

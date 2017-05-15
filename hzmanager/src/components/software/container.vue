@@ -1,7 +1,7 @@
 <template>
 <div id="container" class="ui basic segment">
   <h4 class="ui horizontal header divider"><i class="bug icon"></i>调试软件</h4>
-  <div class="ui link six cards" v-if="debugSoftwares.length != 0">
+  <div class="ui link eight cards" v-if="debugSoftwares.length != 0">
     <!--卡片-->
     <div class="yellow normal card" v-for="(item,index) in debugSoftwares">
       <div class="blurring image" v-if="item.softwareUseFlag == 0"><img class="image" :src="'/resource/static/' + item.softwareImg" v-on:click="choseSoftware()" />
@@ -33,7 +33,7 @@
     <h2><i class="large ui frown icon"></i>调试软件列表还是空的，赶快添加一个吧！</h2>
   </div>
   <h4 class="ui horizontal header divider"><i class="settings icon"></i>升级软件</h4>
-  <div class="ui link six cards" v-if="updateSoftwares != null && updateSoftwares.length != 0">
+  <div class="ui link eight cards" v-if="updateSoftwares != null && updateSoftwares.length != 0">
     <div class="blue card" style="width:190px;" :class="item.color" v-for="(item,index) in updateSoftwares">
       <div class="blurring image" v-if="item.softwareUseFlag == 0"><img class="image" style="width 190px;height: 190px" :src="'/resource/static/' + item.softwareImg" v-on:click="choseSoftware()" />
         <div class="rounded ui dimmer" style="border-radius:5px 5px 0px 0px;" @click="choseSoftware(item)">

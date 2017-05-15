@@ -48,7 +48,13 @@ export default {
         }).catch(function(error) {
           alert(error);
         });
+      // setInterval(function() {
+      //
+      // }, 1000);
     }
+  },
+  beforeMount: function() {
+    this.fillInspectCount();
   },
   mounted: function() {
     // $('.click.item').on('click', function() {
@@ -59,12 +65,10 @@ export default {
     //     .not($(this))
     //     .removeClass('active');
     // })
-    this.fillInspectCount();
     //给新增软件中软件类型的下拉菜单绑定效果
     $('.ui.dropdown').dropdown({
       transition: 'slide down'
     });
-
     //给信息的关闭按钮绑定事件
     $('.message .close').on('click', function() {
       $(this).closest('.message').fadeOut();
@@ -146,6 +150,9 @@ export default {
   color: #2185d0!important;
 }
 
+
+
+
 /*.red {
   background-color: #C43627!important;
   border-color: #C43627!important;
@@ -156,13 +163,15 @@ export default {
   border-color: #4CC759!important;
 }*/
 
-.ui.card>.extra a:not(.ui):hover, .ui.cards>.card>.extra a:not(.ui):hover {
-    color: #2185d0;
+.ui.card>.extra a:not(.ui):hover,
+.ui.cards>.card>.extra a:not(.ui):hover {
+  color: #2185d0;
 }
 
-.ui.header{
-  color:#584B4F;
+.ui.header {
+  color: #584B4F;
 }
+
 .ui.modal>.header {
   color: #584B4F;
 }
