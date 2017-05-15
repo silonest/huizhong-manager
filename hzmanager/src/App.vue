@@ -18,9 +18,9 @@
       </a>
     </div>
   </div>
-  <keep-alive v-if="waitingCount.licenceCount != null || waitingCount.passCount != null">
-    <router-view></router-view>
-  </keep-alive>
+  <!-- <keep-alive v-if="waitingCount.licenceCount != null || waitingCount.passCount != null"> -->
+    <router-view v-if="waitingCount.licenceCount != null || waitingCount.passCount != null"></router-view>
+  <!-- </keep-alive> -->
 </div>
 </template>
 <script>
