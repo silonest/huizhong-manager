@@ -25,7 +25,8 @@
               <div class="icon header" style="font-size:13px;"><i class="user icon"></i>用户</div>
               <div class="meta">在 {{ item.pass.passCtime }} 提交申请</div>
               <div class="description">我是"{{ item.userName }}"，我的介绍人是"{{ item.pass.passUserReference }}"，
-                <template v-if="item.userIntroduction != null">我的个人简介是"{{ item.userIntroduction }}"，</template>我想加入你们。
+                <template v-if="item.userIntroduction != null">我的个人简介是"{{ item.userIntroduction }}"，
+</template>我想加入你们。
               </div>
             </div>
             <div class="extra content">
@@ -111,7 +112,7 @@ export default {
     userApprove(passId, index) {
       axios.put('/resource/dynamic/pass/' + passId + '/inspect/approve')
         .then(response => {
-          this.toast.success('审核结果已更改');
+          this.toast.success('已同意申请');
           this.users.splice(index, 1);
           this.waitingCount.passCount--;
         }).catch(function(error) {
@@ -125,10 +126,10 @@ export default {
       } else {
         axios.put('/resource/dynamic/pass/' + passId + '/inspect/decline',
             this.$refs['user-reason-' + passId][0].value
-          )
-          .then(response => {
-            this.toast.success('审核结果已更改');
+          ).then(response => {
+            this.toast.success('已拒绝申请');
             this.users.splice(index, 1);
+            this.$refs['user-reason-' + passId][0].value = '';
             this.waitingCount.passCount--;
           })
           .catch(function(error) {
@@ -142,7 +143,7 @@ export default {
           period: period == null || period == undefined || period == '' ? 0 : period
         })
         .then(response => {
-          this.toast.success('已通过审核');
+          this.toast.success('已同意申请');
           this.licences.splice(index, 1);
           this.waitingCount.licenceCount--;
         }).catch(function(error) {
@@ -158,8 +159,9 @@ export default {
             inspectReason: inspectReason
           })
           .then(response => {
-            this.toast.success('已拒绝');
+            this.toast.success('已拒绝申请');
             this.licences.splice(index, 1);
+            this.$refs['licence-reason-' + licenceId][0].value = '';
             this.waitingCount.licenceCount--;
           }).catch(function(error) {
             alert(error);
