@@ -48,7 +48,7 @@
         </div>
       </div>
       <div class="ui divider" style="margin: 14px 0px 2px 0px;"></div>
-      <div class="ui very relaxed divided list" style="margin-top:2px;">
+      <div v-if="branch.item != null" class="ui very relaxed divided list" style="margin-top:2px;">
         <div class="item" v-for="item in branch.item.notes" style="padding:6px 0px;">
           <div class="right floated content" style="padding:6px 1px;">
             <i class="flag" :class="item.branchLanguage | transferLanguageToFlag"></i>
@@ -56,10 +56,13 @@
           </div>
           <img class="ui middle aligned avatar image" :src="'/resource/static/' + selectedSoftware.softwareImg">
           <div class="content">
-            <div class="header">{{branch.item.branchVersion}}@{{item.branchName | substr(15)}}</div>
+            <div class="header">{{branch.item.branchVersion}}@{{item.branchName}}</div>
             <div class="description">{{item.branchNote | substr(13)}}</div>
           </div>
         </div>
+      </div>
+      <div class="ui disabled center aligned basic segment" v-else>
+        <h5>还没有版本，点击右上角的“+”按钮，新增版本。</h5>
       </div>
     </div>
     <!--关联角色的快捷操作-->
@@ -111,8 +114,10 @@ export default {
   watch: {
     //给传入的软件绑定监听事件，当参数发生变化时，重新查询数据
     selectedSoftware: function() {
-      this.fillRoles();
-      this.fillVersions();
+      if (this.selectedSoftware != null && this.selectedSoftware != '' && this.selectedSoftware != undefined) {
+        this.fillRoles();
+        this.fillVersions();
+      }
     }
   },
   methods: {
