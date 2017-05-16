@@ -71,21 +71,20 @@
       </div>
     </div>
     <div class="actions" style="padding:10px;">
-      <div class="ui negative button" @click="dropCreate()">放弃 </div>
+      <div class="ui negative button" @click="dropCreate()">取消 </div>
       <div class="ui green right labeled icon button" :class="{'disabled': buffer.notes.length == 0 || buffer.image.path == '' || buffer.image.chars == ''}" @click="submit()"><i class="checkmark right icon"></i>新增软件</div>
     </div>
   </div>
-  <div id="creater_result" class="ui modal">
-    <i class="close icon"></i>
+  <div id="creater_result" class="ui small modal">
     <div class="content">
-      <h2 class="ui center aligned icon header">
+      <h3 class="ui center aligned icon header">
         <i class="circular green check icon"></i>
-        添加成功，您可以继续添加版本。
-      </h2>
+        添加成功！您可以继续添加版本。
+      </h3>
     </div>
     <div class="actions" style="padding:10px;">
-      <div class="ui green cancel button"><i class="remove icon"></i> 算了吧 </div>
-      <div class="ui red ok button" @click="goToBinder()"><i class="checkmark icon"></i> 继续添加 </div>
+      <div class="ui red cancel button">取消 </div>
+      <div class="ui green button" @click="goToBinder()"><i class="checkmark icon"></i>继续 </div>
     </div>
   </div>
 </div>
@@ -208,6 +207,7 @@ export default {
       });
     },
     goToBinder() {
+      $('#creater_result').modal('hide');
       this.$emit('showBinder');
     },
     dropCreate() {
@@ -220,6 +220,7 @@ export default {
       blurring: true,
       allowMultiple: false,
       autofocus: false,
+      closable: false,
       onHidden: function() {
         this.$refs.choseImageFileInput.value = '';
         $('#software_creater_form').form('reset');

@@ -1,12 +1,6 @@
 <template>
 <div id="editUserModal" class="edituser ui modal">
-  <i class="close icon"></i>
-  <h4 class="ui header">
-      <i class="settings icon"></i>
-      <div class="content">编辑用户
-        <div class="sub header">编辑用户的信息</div>
-      </div>
-    </h4>
+  <div class="header">修改用户</div>
   <div class="content">
     <div class="edituser ui small form">
       <div class="four fields">
@@ -42,7 +36,8 @@
     </div>
   </div>
   <div class="actions">
-    <div class="ui green right labeled icon button" @click="submit()"><i class="checkmark right icon"></i>修改用户</div>
+    <div class="ui red cancel button">取消 </div>
+    <div class="ui green right labeled icon button" @click="submit()"><i class="checkmark right icon"></i>修改</div>
   </div>
 </div>
 </template>

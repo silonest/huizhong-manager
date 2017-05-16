@@ -1,12 +1,6 @@
 <template>
 <div class="newuser ui modal">
-  <i class="close icon"></i>
-  <h4 class="ui header">
-      <i class="settings icon"></i>
-      <div class="content">新增用户
-        <div class="sub header">新增一个系统用户</div>
-      </div>
-    </h4>
+  <div class="header">新增用户</div>
   <div class="content">
     <div id="newUserForm" class="ui small form">
       <div class="four fields">
@@ -40,7 +34,8 @@
     </div>
   </div>
   <div class="actions">
-    <div class="ui green right labeled icon button" @click="submit()"><i class="checkmark right icon"></i>新增用户</div>
+    <div class="ui red cancel button">取消 </div>
+    <div class="ui green right labeled icon button" @click="submit()"><i class="checkmark right icon"></i>新增 </div>
   </div>
 </div>
 </template>
@@ -126,6 +121,9 @@ export default {
           }]
         }
       }
+    });
+    $('.role.ui.dropdown').dropdown({
+      transition: 'slide down'
     });
   }
 }

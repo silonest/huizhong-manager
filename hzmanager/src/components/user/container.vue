@@ -18,17 +18,18 @@
         <td class="center aligned">
           <div class="ui empty circular label" :class="item.userUseFlag == 0 ? 'red' : item.userUseFlag == 1 ? 'green' : 'orange'"></div>
         </td>
-        <td>{{item.userAccount}}</td>
-        <td>{{item.userName}}</td>
-        <td>{{item.userEmail}}</td>
+        <td>{{item.userAccount == null ? 'N/A' : item.userAccount}}</td>
+        <td>{{item.userName == null ? 'N/A' : item.userName}}</td>
+        <td>{{item.userEmail == null ? 'N/A' : item.userEmail}}</td>
         <td>
-          <div class="ui horizontal list">
+          <div class="ui horizontal list" v-if="item.role.roleName != null">
             <div class="item">
               <i class="unlock icon"></i>
               <div class="content">
                 <div class="header">{{item.role.roleName}}</div>{{item.role.roleIntroduction}}</div>
             </div>
           </div>
+          <div v-else>N/A</div>
         </td>
         <td>{{item.userCtime}}</td>
         <td class="left aligned" style="padding:0px 5px;">
@@ -48,14 +49,14 @@
     </tbody>
   </table>
 
-  <div id="deleteUserMod" class="ui basic coupled modal">
-    <div class="ui icon header"><i class="remove icon"></i> 删除该用户？ </div>
+  <div id="deleteUserMod" class="ui small modal">
+    <div class="header">删除？</div>
     <div class="content">
       <p>你是要删除"{{deleteUserTemp.user.userName}}"吗，执行删除操作，用户将不能下载软件，也不能申请密钥，但已经申请过的密钥还能使用。</p>
     </div>
     <div class="actions">
-      <div class="ui green basic cancel inverted button"><i class="remove icon"></i> 再想想 </div>
-      <div class="ui red ok inverted button" @click="deleteUser(deleteUserTemp.user.userId,deleteUserTemp.index)"><i class="checkmark icon"></i> 删了吧 </div>
+      <div class="ui red cancel button">取消 </div>
+      <div class="ui green right labeled icon button" @click="deleteUser(deleteUserTemp.user.userId,deleteUserTemp.index)"><i class="checkmark right icon"></i>删除</div>
     </div>
   </div>
 
