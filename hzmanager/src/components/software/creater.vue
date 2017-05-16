@@ -84,7 +84,7 @@
     </div>
     <div class="actions" style="padding:10px;">
       <div class="ui red cancel button">取消 </div>
-      <div class="ui green button" @click="goToBinder()"><i class="checkmark icon"></i>继续 </div>
+      <div class="ui green right labeled icon button" @click="goToBinder()"><i class="checkmark icon"></i>继续 </div>
     </div>
   </div>
 </div>

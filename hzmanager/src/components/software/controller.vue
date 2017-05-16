@@ -7,14 +7,14 @@
     <div class="active section"><span style="color:#584B4F;">软件管理</span></div>
   </div>
   <!--软件提示-->
-  <div class="ui info message">
+  <div class="ui info small message">
     <div class="header">软件管理</div>
     <p>软件管理功能可以帮助您维护服务平台的软件和软件的版本。如果您对软件和版本的概念不是很理解，您可以查看<a href="">帮助</a></p>
     <div class="fluid ui buttons">
-      <div class="ui button" @click="showNewSwMod()">新增软件</div>
+      <div class="ui green right labeled icon button" @click="showNewSwMod()"><i class="checkmark icon"></i>新增软件</div>
     </div>
   </div>
-  <div class="ui icon info message" v-show="selectedSoftware == null || selectedSoftware.softwareId == null || selectedSoftware.softwareId == ''">
+  <div class="ui icon info small message" v-show="selectedSoftware == null || selectedSoftware.softwareId == null || selectedSoftware.softwareId == ''">
     <i class="info grey icon"></i> 选择软件后可以快捷操作软件版本和关联角色。
   </div>
   <!-- <div class="right item" style="padding:8px 5px;" v-if="selectedSoftware != null && selectedSoftware.note != null">

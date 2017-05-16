@@ -7,14 +7,14 @@
     <div class="active section"><span style="color:#584B4F;">角色管理</span></div>
   </div>
   <!--角色管理提示-->
-  <div class="ui info message">
+  <div class="ui info small message">
     <div class="header">角色管理</div>
     <p>角色管理功能可以帮助您维护服务平台的软件，在该页您可以增加，停用软件。</p>
     <div class="fluid ui buttons">
-      <div class="ui button" @click="showNewRoleMod()">新增角色</div>
+      <div class="ui green right labeled icon button" @click="showNewRoleMod()"><i class="checkmark icon"></i>新增角色</div>
     </div>
   </div>
-  <div class="ui icon info message" v-show="selectedRole == null || selectedRole.roleId == null || selectedRole.roleId == ''">
+  <div class="ui icon info small message" v-show="selectedRole == null || selectedRole.roleId == null || selectedRole.roleId == ''">
     <i class="info grey icon"></i> 选择角色后可以快捷操作角色关联的软件。
   </div>
   <div class="ui basic segment" style="padding:0px;" v-show="selectedRole != null && selectedRole.roleId != null && selectedRole.roleId != ''">

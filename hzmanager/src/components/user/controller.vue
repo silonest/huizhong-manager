@@ -5,11 +5,11 @@
     <i class="right arrow icon divider"></i>
     <div class="active section"><span style="color:#584B4F;">用户管理</span></div>
   </div>
-  <div class="ui info message">
+  <div class="ui info small message">
     <div class="header">用户管理</div>
     <p>用户管理功能可以帮助您管理平台的用户。</p>
     <div class="fluid ui buttons">
-      <div class="ui button" @click="showNewUserMod()">新增用户</div>
+      <div class="ui green right labeled icon button" @click="showNewUserMod()"><i class="checkmark icon"></i>新增用户</div>
     </div>
   </div>
 </div>

@@ -22,11 +22,16 @@
         <td>{{item.userName == null ? 'N/A' : item.userName}}</td>
         <td>{{item.userEmail == null ? 'N/A' : item.userEmail}}</td>
         <td>
-          <div class="ui horizontal list" v-if="item.role.roleName != null">
+          <!-- <a class="ui image basic label" v-if="item.role.roleName != null">
+  <img src="../../assets/imgs/role.svg">
+  {{item.role.roleName}}
+</a> -->
+          <div class="ui relaxed horizontal list" v-if="item.role.roleName != null">
             <div class="item">
-              <i class="unlock icon"></i>
+              <img class="ui avatar image" style="width:30px;height:30px;" src="../../assets/imgs/role.svg">
               <div class="content">
-                <div class="header">{{item.role.roleName}}</div>{{item.role.roleIntroduction}}</div>
+                <div class="header">{{item.role.roleName}}</div>{{item.role.roleIntroduction}}
+              </div>
             </div>
           </div>
           <div v-else>N/A</div>

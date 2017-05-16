@@ -20,13 +20,12 @@
           <div class="red card" v-for="(item,index) in users">
             <div class="content">
               <div class="right floated meta">
-                <a class="ui red empty circular label"></a>
+                <div class="ui red empty circular label"></div>
               </div>
               <div class="icon header" style="font-size:13px;"><i class="user icon"></i>用户</div>
               <div class="meta">在 {{ item.pass.passCtime }} 提交申请</div>
               <div class="description">我是"{{ item.userName }}"，我的介绍人是"{{ item.pass.passUserReference }}"，
-                <template v-if="item.userIntroduction != null">我的个人简介是"{{ item.userIntroduction }}"，
-</template>我想加入你们。
+                <span v-if="item.userIntroduction != null">我的个人简介是"{{ item.userIntroduction }}"，</span>我想加入你们。
               </div>
             </div>
             <div class="extra content">
@@ -50,7 +49,7 @@
           <div class="ui red card" v-for="(item,index) in licences">
             <div class="content">
               <div class="right floated meta">
-                <a class="ui red empty circular label"></a>
+                <div class="ui red empty circular label"></div>
               </div>
               <div class="icon header" style="font-size:13px;"><i class="lock icon"></i>密钥</div>
               <div class="meta">在 {{ item.licenceCtime }} 提交申请</div>
@@ -81,12 +80,12 @@
     <div class="header">绑定角色 </div>
     <div class="content">
       <div id="editUserRoleForm" class="ui small form">
-      <div class="four wide required field">
-        <label>用户角色</label>
-        <select class="role ui dropdown" ref="userRole">
+        <div class="four wide required field">
+          <label>用户角色</label>
+          <select class="role ui dropdown" ref="userRole">
           <option :value="item.roleId" v-for="item in roles">{{item.roleName}}</option>
         </select>
-      </div>
+        </div>
       </div>
     </div>
     <div class="actions">
@@ -212,7 +211,7 @@ export default {
       blurring: true,
       allowMultiple: false,
       autofocus: false,
-      onHidden(){
+      onHidden() {
         $('#editUserRoleForm').form('clear');
       }
     });

@@ -16,8 +16,9 @@
       <img class="image" :src="'/resource/static/' + item.softwareImg" v-else @click="choseSoftware(item)" />
       <div class="content" v-on:click="choseSoftware(item)">
         <div class="header">{{item.note.softwareName}}</div>
-        <div class="meta">当前版本 : {{item.branch == null ? 'N/A' : item.branch.branchVersion}}</div>
-        <div class="meta">语言 : <i class="flag" v-for="flag in item.language" :class="flag | transferLanguageToFlag"></i></div>
+        <div class="meta">{{item.softwareUtime}}</div>
+        <div class="meta">Ver: {{item.branch == null ? 'N/A' : item.branch.branchVersion}}</div>
+        <div class="meta"><i class="flag" v-for="flag in item.language" :class="flag | transferLanguageToFlag"></i></div>
         <div class="description">{{item.note.softwareNote}}</div>
       </div>
       <div class="extra content" style="background:#F6F8FA;">
@@ -30,7 +31,7 @@
     <!--卡片结尾-->
   </div>
   <div class="ui disabled center aligned basic segment" v-else>
-    <h2><i class="large ui frown icon"></i>调试软件列表还是空的，赶快添加一个吧！</h2>
+    <h2><i class="large ui add icon"></i>调试软件列表还是空的，赶快添加一个吧！</h2>
   </div>
   <h4 class="ui horizontal header divider"><i class="settings icon"></i>升级软件</h4>
   <div class="ui link eight cards" v-if="updateSoftwares != null && updateSoftwares.length != 0">
@@ -47,8 +48,9 @@
       <img class="image" style="height: 190px" :src="'/resource/static/' + item.softwareImg" v-else @click="choseSoftware(item)" />
       <div class="content" v-on:click="choseSoftware(item)">
         <div class="header">{{item.note.softwareName}}</div>
-        <div class="meta">当前版本:{{item.branch == null ? 'N/A' : item.branch.branchVersion}}</div>
-        <div class="meta">语言 : <i class="flag" v-for="flag in item.language" :class="flag | transferLanguageToFlag"></i></div>
+        <div class="meta">{{item.softwareUtime}}</div>
+        <div class="meta">Ver:{{item.branch == null ? 'N/A' : item.branch.branchVersion}}</div>
+        <div class="meta"><i class="flag" v-for="flag in item.language" :class="flag | transferLanguageToFlag"></i></div>
         <div class="description">{{item.note.softwareNote}}</div>
       </div>
       <div class="extra content">
@@ -60,7 +62,7 @@
     </div>
   </div>
   <div class="ui disabled center aligned basic segment" v-else>
-    <h2><i class="large ui frown icon"></i>升级软件列表还是空的，赶快添加一个吧！</h2>
+    <h2><i class="large ui add icon"></i>升级软件列表还是空的，赶快添加一个吧！</h2>
   </div>
 
   <div id="deleteSwMod" class="ui basic coupled modal">
