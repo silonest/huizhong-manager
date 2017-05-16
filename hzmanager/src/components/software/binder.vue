@@ -103,6 +103,7 @@ export default {
       this.$set(this.$data.buffer, 'notes', notes);
     },
     show() {
+      this.initNotes();
       this.entity.main.modal('show');
     },
     showChoseApkFileInput() {
