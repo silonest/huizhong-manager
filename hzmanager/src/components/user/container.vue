@@ -1,6 +1,6 @@
 <template>
 <div class="ui basic segment">
-  <h4 class="ui horizontal header divider"><i class="user icon"></i>所有用户</h4>
+  <!-- <h4 class="ui horizontal header divider"><i class="user icon"></i>所有用户</h4> -->
   <table class="ui yellow striped table" style="width:100%;height:auto;">
     <thead class="full-width">
       <tr>
