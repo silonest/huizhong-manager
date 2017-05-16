@@ -112,7 +112,6 @@ export default {
   },
   methods: {
     objArrayHandler(arry) {
-      console.log(arry);
       if (arry != null) {
         for (let i = 0; i < arry.length; i++) {
           let obj = arry[i];
@@ -125,7 +124,6 @@ export default {
         }
         return arry;
       }
-      console.log(arry);
     },
     changeCheckBox(software) {
       let bindType = software.selected ? "bind" : "unbind";
