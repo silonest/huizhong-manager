@@ -9,7 +9,7 @@
   <!--角色管理提示-->
   <div class="ui info small message">
     <div class="header">角色管理</div>
-    <p>角色管理功能可以帮助您维护服务平台的软件，在该页您可以增加，停用软件。</p>
+    <p>角色管理功能可以帮助您维护服务平台的软件。停用角色后角色关联的用户将不能再登录。内置的角色不允许删除。</p>
     <div class="fluid ui buttons">
       <div class="ui green right labeled icon button" @click="showNewRoleMod()"><i class="checkmark icon"></i>新增角色</div>
     </div>
