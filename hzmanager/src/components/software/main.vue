@@ -15,7 +15,7 @@
   </div>
   <!-- <sw-mod-new v-on:refreshSoftwares="refreshSoftwares" ref="newSwMod"></sw-mod-new> -->
   <!-- <ver-mod-new :software="selectedSw" v-on:refreshVersions="refreshVersions" ref="newVerMod"></ver-mod-new> -->
-  <sw-creater v-on:refreshSoftwares="refreshSoftwares" ref="creater"></sw-creater>
+  <sw-creater @checkSoftwareAndRefreshList="checkSoftwareAndRefreshList" @showBinder="showBinder" ref="creater"></sw-creater>
   <sw-binder v-if="selectedSw.softwareId != null" :software="selectedSw" v-on:refreshVersions="refreshVersions" ref="binder"></sw-binder>
 </div>
 </template>
@@ -55,6 +55,9 @@ export default {
     },
     refreshSoftwares() {
       this.$refs.container.refreshSoftwares();
+    },
+    checkSoftwareAndRefreshList(softwareId) {
+      this.$refs.container.refreshSoftwaresAndChoseSoftware(softwareId);
     },
     refreshVersions() {
       this.$refs.controller.refreshVersions();

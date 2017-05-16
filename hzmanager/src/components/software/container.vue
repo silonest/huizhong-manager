@@ -94,13 +94,41 @@ export default {
         .then(response => {
           this.debugSoftwares = response.data.content;
         }).catch(function(error) {
-          alert(response);
+          alert(error);
         });
       axios.get('/resource/dynamic/manager/softwares/type/updater')
         .then(response => {
           this.updateSoftwares = response.data.content;
         }).catch(function(error) {
           alert(response);
+        });
+    },
+    fillSoftwaresAndChoseSoftware(softwareId) {
+      axios.get('/resource/dynamic/manager/softwares/type/debugger')
+        .then(response => {
+          this.debugSoftwares = response.data.content;
+          if (!this.str.isEmpty(softwareId)) {
+            let debugSoftwares = this.debugSoftwares;
+            for (let index = 0; index < debugSoftwares.length; index++) {
+              if (debugSoftwares[index].softwareId == softwareId) {
+                this.$emit('selectSoftware', debugSoftwares[index]);
+              }
+            }
+          }
+        }).catch(function(error) {
+          alert(error);
+        });
+      axios.get('/resource/dynamic/manager/softwares/type/updater')
+        .then(response => {
+          this.updateSoftwares = response.data.content;
+          let updateSoftwares = this.updateSoftwares;
+          for (let index = 0; index < updateSoftwares.length; index++) {
+            if (updateSoftwares[index].softwareId == softwareId) {
+              this.$emit('selectSoftware', updateSoftwares[index]);
+            }
+          }
+        }).catch(function(error) {
+          alert(error);
         });
     },
     changeSoftwareStatus(software, currentStatus) {
@@ -152,6 +180,9 @@ export default {
     },
     refreshSoftwares() {
       this.fillSoftwares();
+    },
+    refreshSoftwaresAndChoseSoftware(softwareId) {
+      this.fillSoftwaresAndChoseSoftware(softwareId);
     }
   },
   created: function() {

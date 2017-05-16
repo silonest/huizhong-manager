@@ -1,5 +1,5 @@
 <template>
-<div class="version ui modal">
+<div id="versionModal" class="version ui modal">
   <i class="close icon"></i>
   <h4 class="ui header">
     <i class="settings icon"></i>
@@ -103,7 +103,7 @@ export default {
   props: ['software'],
   methods: {
     show() {
-      $('.version.ui.modal').modal('show');
+      $('#versionModal').modal('show');
     },
     choseSoftware() {
       $('#choseSoftwareButton').click();
@@ -134,13 +134,13 @@ export default {
         }
         if (isAdd) {
           this.createVersionForm.versionGlobal.push(versionGlobal);
-          $('.version.ui.modal').modal('refresh');
+          $('#versionModal').modal('refresh');
         }
       }
     },
     removeGlobalTableColumn(index) {
       this.createVersionForm.versionGlobal.splice(index, 1);
-      $('.version.ui.modal').modal('refresh');
+      $('#versionModal').modal('refresh');
     },
     clearVersionInput() {
       $('#versionName').val('');
@@ -194,7 +194,7 @@ export default {
           notes: branchNote
         }).then(function(response) {
           if (response.data.status == "SUCCESS") {
-            $('.version.ui.modal').modal('hide');
+            $('#versionModal').modal('hide');
             this.$emit('refreshVersions');
             this.toast.success('添加成功');
           }
@@ -202,14 +202,14 @@ export default {
           alert(response);
         });
       } else {
-        $('.version.ui.modal').modal('refresh');
+        $('#versionModal').modal('refresh');
       }
     }
   },
   mounted: function() {
     //给新增软件中软件类型的下拉菜单绑定效果
     $('#versionLanguage').dropdown('set selected', 'china');
-    $('.version.ui.modal').modal({
+    $('#versionModal').modal({
       context: '#app',
       blurring: true,
       closable: false,

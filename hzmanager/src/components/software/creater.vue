@@ -90,7 +90,7 @@
     </div>
     <div class="actions" style="padding:10px;">
       <div class="ui green cancel button"><i class="remove icon"></i> 算了吧 </div>
-      <div class="ui red ok button"><i class="checkmark icon"></i> 继续添加 </div>
+      <div class="ui red ok button" @click="goToBinder()"><i class="checkmark icon"></i> 继续添加 </div>
     </div>
   </div>
 </div>
@@ -205,12 +205,15 @@ export default {
         'softwareType': this.buffer.type,
         'notes': softwareNotes
       }).then(function(response) {
-        this.$emit('refreshSoftwares');
+        this.$emit('checkSoftwareAndRefreshList',response.data.content);
         $('#software_creater').modal('hide');
         $('#creater_result').modal('show');
       }.bind(this)).catch(function(response) {
         alert(response);
       });
+    },
+    goToBinder() {
+      this.$emit('showBinder');
     }
   },
   mounted: function() {
