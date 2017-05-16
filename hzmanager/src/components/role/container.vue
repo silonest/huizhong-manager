@@ -3,7 +3,7 @@
   <h4 class="ui horizontal header divider"><i class="lock icon"></i>所有角色</h4>
   <div class="ui grid">
     <div class="eight wide column">
-      <div class="ui middle aligned animated divided list">
+      <div class="ui middle aligned animated list">
         <div class="item" v-for="(item,index) in roles" v-if="item.roleLevel == 1" @click="choseRole(item)">
           <div class="right floated middle aligned content">
             <div class="ui label button" v-if="item.roleUseFlag == 0" @click="changeRoleStatus(item,'used',index)"><i class="play icon" data-content="启用"></i>启用</div>
@@ -12,9 +12,8 @@
           <img class="ui avatar image" style="width:60px;height:60px;" src="../../assets/imgs/role.svg">
           <div class="content">
             <div class="header">{{item.roleName}}</div>
-            <div class="meta"v-if="item.roleLevel == 1">
-              <span class="price">内置角色</span>
-              <span class="stay"></span>
+            <div class="meta">
+              <span>内置角色</span>
             </div>
             <div class="description">
               <p>{{item.roleIntroduction}}</p>
@@ -24,21 +23,22 @@
       </div>
     </div>
     <div class="eight wide column">
-      <div class="item" v-for="(item,index) in roles" v-if="item.roleLevel == 2" @click="choseRole(item)">
-        <div class="right floated middle aligned content">
-          <div class="ui label button" v-if="item.roleUseFlag == 0" @click="changeRoleStatus(item,'used',index)"><i class="play icon" data-content="启用"></i>启用</div>
-          <div class="ui label button" v-else @click="changeRoleStatus(item,'unused',index)"><i class="pause icon" data-content="停用"></i>停用</div>
-          <div class="ui label button" @click="changeRoleStatus(item,'disable',index)"><i class="remove icon" data-content="删除"></i>删除</div>
-        </div>
-        <img class="ui avatar image" style="width:60px;height:60px;" src="../../assets/imgs/role.svg">
-        <div class="content">
-          <div class="header">{{item.roleName}}</div>
-          <div class="meta"v-if="item.roleLevel == 1">
-            <span class="price">自定义角色</span>
-            <span class="stay"></span>
+      <div class="ui middle aligned animated list">
+        <div class="item" v-for="(item,index) in roles" v-if="item.roleLevel == 2" @click="choseRole(item)">
+          <div class="right floated middle aligned content">
+            <div class="ui label button" v-if="item.roleUseFlag == 0" @click="changeRoleStatus(item,'used',index)"><i class="play icon" data-content="启用"></i>启用</div>
+            <div class="ui label button" v-else @click="changeRoleStatus(item,'unused',index)"><i class="pause icon" data-content="停用"></i>停用</div>
+            <div class="ui label button" @click="changeRoleStatus(item,'disable',index)"><i class="remove icon" data-content="删除"></i>删除</div>
           </div>
-          <div class="description">
-            <p>{{item.roleIntroduction}}</p>
+          <img class="ui avatar image" style="width:60px;height:60px;" src="../../assets/imgs/role.svg">
+          <div class="content">
+            <div class="header">{{item.roleName}}</div>
+            <div class="meta">
+              <span>自定义角色</span>
+            </div>
+            <div class="description">
+              <p>{{item.roleIntroduction}}</p>
+            </div>
           </div>
         </div>
       </div>
