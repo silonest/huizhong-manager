@@ -1,5 +1,5 @@
 <template>
-<div class="edituser ui modal">
+<div id="editUserModal" class="edituser ui modal">
   <i class="close icon"></i>
   <h4 class="ui header">
       <i class="settings icon"></i>
@@ -62,7 +62,7 @@ export default {
   },
   methods: {
     show() {
-      $('.edituser.ui.modal').modal('show');
+      $('#editUserModal').modal('show');
     },
     fillRoleSelect() {
       //给角色选择下拉菜单填充用户
@@ -88,7 +88,7 @@ export default {
         userIntroduction: this.$refs.userIntroduction.value,
         role: role
       }).then(response => {
-        $('.edituser.ui.modal').modal('hide');
+        $('#editUserModal').modal('hide');
         this.toast.success('修改成功');
         this.$emit('refreshUsers');
       }).catch(function(error) {
@@ -98,7 +98,7 @@ export default {
   },
   mounted: function() {
     this.fillRoleSelect();
-    $('.edituser.ui.modal').modal({
+    $('#editUserModal').modal({
       context: '#app',
       autofocus: false,
       blurring: true,
