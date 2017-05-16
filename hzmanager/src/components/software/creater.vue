@@ -1,13 +1,7 @@
 <template>
 <div>
   <div id="software_creater" class="ui modal">
-    <i class="close icon"></i>'
-    <h5 class="ui header">
-      <i class="settings icon"></i>
-      <div class="content">新增软件
-        <div class="sub header">新增一个软件，必须添加</div>
-      </div>
-    </h5>
+    <div class="header">新增软件</div>
     <div class="content">
       <div id="software_creater_form" class="ui small form">
         <div class="two fields">
@@ -77,6 +71,7 @@
       </div>
     </div>
     <div class="actions" style="padding:10px;">
+      <div class="ui negative button" @click="dropCreate()">放弃 </div>
       <div class="ui green right labeled icon button" :class="{'disabled': buffer.notes.length == 0 || buffer.image.path == '' || buffer.image.chars == ''}" @click="submit()"><i class="checkmark right icon"></i>新增软件</div>
     </div>
   </div>
@@ -214,6 +209,9 @@ export default {
     },
     goToBinder() {
       this.$emit('showBinder');
+    },
+    dropCreate() {
+      $('#software_creater').modal('hide');
     }
   },
   mounted: function() {

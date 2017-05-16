@@ -38,7 +38,7 @@
                   </div>
                 </div>
                 <div class="item">
-                  <a @click="userApprove(item.pass.passId,index)"><i class="check green outline icon"></i></a>
+                  <a @click="showBindRoleToUser(item.pass.passId,index)"><i class="check green outline icon"></i></a>
                 </div>
               </div>
             </div>
@@ -77,6 +77,23 @@
       </div>
     </div>
   </div>
+  <div id="inspectModal" class="ui small modal">
+    <div class="header">绑定角色 </div>
+    <div class="content">
+      <div id="editUserRoleForm" class="ui small form">
+      <div class="four wide required field">
+        <label>用户角色</label>
+        <select class="role ui dropdown" ref="userRole">
+          <option :value="item.roleId" v-for="item in roles">{{item.roleName}}</option>
+        </select>
+      </div>
+      </div>
+    </div>
+    <div class="actions">
+      <div class="ui negative button" @click="drop()">放弃 </div>
+      <div class="ui green right labeled icon button" @click="userApprove()"><i class="checkmark right icon"></i>通过</div>
+    </div>
+  </div>
 </div>
 </template>
 <script>
@@ -85,6 +102,8 @@ import bus from './eventBus.js';
 export default {
   data() {
     return {
+      roles: {},
+      userApproveBuffer: {},
       users: null,
       licences: null,
       waitingCount: {}
@@ -97,7 +116,7 @@ export default {
           this.users = response.data.content;
         })
         .catch(function(error) {
-          alert(response);
+          alert(error);
         });
     },
     fillWaitingLicence() {
@@ -106,35 +125,50 @@ export default {
           this.licences = response.data.content;
         })
         .catch(function(error) {
-          alert(response);
+          alert(error);
         });
     },
-    userApprove(passId, index) {
-      axios.put('/resource/dynamic/pass/' + passId + '/inspect/approve')
+    fillRoleSelect() {
+      //给角色选择下拉菜单填充用户
+      axios.get('/resource/dynamic/roles')
         .then(response => {
-          this.toast.success('已同意申请');
-          this.users.splice(index, 1);
-          this.waitingCount.passCount--;
+          this.roles = response.data.content;
         }).catch(function(error) {
           alert(error);
         });
+    },
+    showBindRoleToUser(passId, index) {
+      this.userApproveBuffer.passId = passId;
+      this.userApproveBuffer.index = index;
+      $('#inspectModal').modal('show');
+    },
+    userApprove() {
+      axios.put('/resource/dynamic/pass/' + this.userApproveBuffer.passId + '/inspect/approve', {
+        roleId: this.$refs.userRole.value
+      }).then(response => {
+        this.users.splice(this.userApproveBuffer.index, 1);
+        this.waitingCount.passCount--;
+        $('#inspectModal').modal('hide');
+        this.toast.success('审核成功');
+      }).catch(function(error) {
+        alert(error);
+      });
     },
     userDecline(passId, index) {
       let inspectReason = this.$refs['user-reason-' + passId][0].value;
       if (inspectReason == null || inspectReason == undefined || inspectReason == '') {
         this.$refs['user-reason-' + passId][0].focus();
       } else {
-        axios.put('/resource/dynamic/pass/' + passId + '/inspect/decline',
-            this.$refs['user-reason-' + passId][0].value
-          ).then(response => {
-            this.toast.success('已拒绝申请');
-            this.users.splice(index, 1);
-            this.$refs['user-reason-' + passId][0].value = '';
-            this.waitingCount.passCount--;
-          })
-          .catch(function(error) {
-            alert(response);
-          });
+        axios.put('/resource/dynamic/pass/' + passId + '/inspect/decline', {
+          inspectReason: inspectReason
+        }).then(response => {
+          this.toast.success('已拒绝申请');
+          this.users.splice(index, 1);
+          this.$refs['user-reason-' + passId][0].value = '';
+          this.waitingCount.passCount--;
+        }).catch(function(error) {
+          alert(error);
+        });
       }
     },
     licenceApprove(licenceId, index) {
@@ -167,14 +201,30 @@ export default {
             alert(error);
           });
       }
+    },
+    drop() {
+      $('#inspectModal').modal('hide');
     }
   },
   mounted: function() {
-    $('.ui.dropdown').dropdown();
+    $('#inspectModal').modal({
+      context: '#app',
+      blurring: true,
+      allowMultiple: false,
+      autofocus: false,
+      onHidden(){
+        $('#editUserRoleForm').form('clear');
+      }
+    });
+    $('#editUserRoleForm').form();
     this.fillWaitingUsers();
     this.fillWaitingLicence();
+    this.fillRoleSelect();
     $('#inspectorTab .item').tab();
     this.waitingCount = bus.getWaitingCount();
+    $('.ui.dropdown').dropdown({
+      transition: 'slide down'
+    });
   }
 }
 </script>

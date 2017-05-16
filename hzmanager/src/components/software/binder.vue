@@ -1,12 +1,6 @@
 <template>
 <div class="version ui modal">
-  <i class="close icon"></i>
-  <h4 class="ui header">
-      <i class="settings icon"></i>
-      <div class="content">新增软件版本
-        <div class="sub header">给软件增加一个新的版本</div>
-      </div>
-    </h4>
+  <div class="header">新增版本</div>
   <div class="content">
     <div class="version ui small form">
       <div class="two fields">
@@ -39,6 +33,7 @@
     </div>
   </div>
   <div class="actions">
+    <div class="ui negative button" @click="dropBind()">放弃 </div>
     <div class="ui green right labeled icon button" @click="submit()"><i class="checkmark right icon"></i>新增版本</div>
   </div>
 </div>
@@ -133,6 +128,9 @@ export default {
         alert(response);
       });
     },
+    dropBind() {
+      this.entity.main.modal('hide');
+    }
   },
   created() {
     // 初始化data数据
