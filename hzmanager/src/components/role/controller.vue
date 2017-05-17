@@ -7,14 +7,14 @@
     <div class="active section"><span style="color:#584B4F;">角色管理</span></div>
   </div>
   <!--角色管理提示-->
-  <div class="ui info small message">
+  <div class="ui explain small message">
     <div class="header">角色管理</div>
     <p>该功能可以帮助您维护平台的角色。停用角色后角色关联的用户将不能再登录。</p>
     <div class="fluid ui buttons">
-      <div class="ui green right labeled icon button" @click="showNewRoleMod()"><i class="checkmark icon"></i>新增角色</div>
+      <div class="ui green right labeled icon button" @click="showNewRoleMod()"><i class="add icon"></i>新增角色</div>
     </div>
   </div>
-  <div class="ui icon info small message" v-show="selectedRole == null || selectedRole.roleId == null || selectedRole.roleId == ''">
+  <div class="ui icon explain small message" v-show="selectedRole == null || selectedRole.roleId == null || selectedRole.roleId == ''">
     <i class="info grey icon"></i> 选择角色后可以快捷操作角色关联的软件。
   </div>
   <div class="ui basic segment" style="padding:0px;" v-show="selectedRole != null && selectedRole.roleId != null && selectedRole.roleId != ''">
@@ -25,7 +25,7 @@
         <div class="ui label">{{ selectedRole.roleName }}</div>
       </div>
     </div>
-    <div class="active ui bottom tab basic segment" data-tab="debugger" style="padding:0px;margin-bottom:0px;">
+    <div class="active ui bottom attached tab segment" data-tab="debugger" style="padding:0px;margin-bottom:0px;">
       <div class="ui mini icon ignored yellow message" v-if="debuggers == null || debuggers.length == 0">
         <i class="info grey icon"></i>没有可用软件，如果您添加了软件，但在此列表中不显示，请确认软件是否启用。
       </div>
@@ -56,7 +56,7 @@
         </a>
       </div> -->
     </div>
-    <div class="ui bottom tab basic segment" data-tab="updater" style="padding:0;margin-bottom:0px;">
+    <div class="ui bottom tab attached segment" data-tab="updater" style="padding:0;margin-bottom:0px;">
       <div class="ui mini icon ignored yellow message" v-if="updaters == null || updaters.length == 0">
         <i class="info grey icon"></i>没有可用软件，如果您添加了软件，但在此列表中不显示，请确认软件是否启用。
       </div>

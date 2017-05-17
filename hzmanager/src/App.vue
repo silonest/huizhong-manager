@@ -132,18 +132,40 @@ export default {
   width: 190px !important;
 }
 
+.ui.attached.segment{
+  box-shadow: 0 1px 2px 0 rgba(34,36,38,.15);
+}
+.ui.attached.segment .ui.table {
+  border: 0px solid rgba(34,36,38,.15);
+}
+
 .ui.attached.info.message,
+.ui.explain.message {
+  /*box-shadow: 0 0 0 1px #949596 inset, 0 0 0 0 transparent;*/
+  box-shadow: 0 1px 2px 0 rgba(34,36,38,.15);
+}
+
+.ui.explain.message {
+  background-color: #F6F8FA;
+  color: #262626;
+}
+
+.ui.explain.message .header {
+  color: #262626;
+}
+
 .ui.info.message {
-  box-shadow: 0 0 0 1.1px #339ABF inset, 0 0 0 0 transparent;
+  box-shadow: 0 0 0 1px #949596 inset, 0 0 0 0 transparent;
+  /*box-shadow: 0 1px 2px 0 rgba(34,36,38,.15);*/
 }
 
 .ui.info.message {
   background-color: #F6F8FA;
-  color: #339ABF;
+  color: #262626;
 }
 
 .ui.info.message .header {
-  color: #339ABF;
+  color: #262626;
 }
 
 .blue {

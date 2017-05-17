@@ -11,7 +11,7 @@
         </div>
       </h5>
       <div class="ui segment">
-        <div class="ui large very relaxed middle aligned animated divided list">
+        <div class="ui very relaxed middle aligned animated divided list">
           <div class="item" v-if="fixedRoles.length > 0" v-for="(item,index) in fixedRoles" @click="choseRole(item)">
             <div class="right floated aligned content">
               <div class="ui label button" v-if="item.roleUseFlag == 0" @click="changeRoleStatus(item,'used',index)"><i class="play icon" data-content="启用"></i>启用</div>
