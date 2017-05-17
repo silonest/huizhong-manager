@@ -4,12 +4,12 @@
   <div style="flex:1 1 auto;display:-webkit-flex;display:flex;flex-flow:row nowrap;">
     <div class="lightgray" style="flex:none;width:320px;">
       <div class="ui compact dividing rail" style="width:320px;">
-        <div class="user controller ui fixed sticky" style="margin-top:50px;">
+        <div id="userSticky" class="ui fixed sticky" style="margin-top:50px;">
           <user-controller style="width:300px;margin: 14px 10px;" v-on:showNewUserMod="showNewUserMod"></user-controller>
         </div>
       </div>
     </div>
-    <div class="container" style="flex:1 1 auto;">
+    <div id="userContainer" style="flex:1 1 auto;">
       <user-container v-on:showEditUserMod="showEditUserMod" ref="container"></user-container>
     </div>
   </div>
@@ -47,8 +47,9 @@ export default {
     }
   },
   mounted: function() {
-    $('.user.controller.ui.sticky').sticky({
+    $('#userSticky').sticky({
       offset: 50,
+      pushing: true,
       context: '.container'
     });
   }

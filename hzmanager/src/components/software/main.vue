@@ -4,12 +4,12 @@
   <div style="flex:1 1 auto;display:-webkit-flex;display:flex;flex-flow:row nowrap;">
     <div class="lightgray" style="flex:none;width:320px;">
       <div class="ui compact dividing rail" style="width:320px;">
-        <div class="software controller ui fixed top sticky" style="margin-top:50px;">
+        <div id="softwareSticky" class="ui fixed top sticky" style="margin-top:50px;">
           <sw-controller v-bind:selectedSoftware="selectedSw" v-on:showNewSwMod="showCreater" v-on:showNewVerMod="showBinder" ref="controller" style="width:300px;margin: 14px 10px;"></sw-controller>
         </div>
       </div>
     </div>
-    <div class="container" style="flex:1 1 auto;">
+    <div id="softwareContainer" style="flex:1 1 auto;">
       <sw-container v-on:selectSoftware="selectSoftware" style="margin: 14px 20px;" ref="container"></sw-container>
     </div>
   </div>
@@ -64,7 +64,7 @@ export default {
     }
   },
   mounted: function() {
-    $('.software.controller.ui.sticky').sticky({
+    $('#softwareSticky').sticky({
       offset: 50,
       pushing: true,
       context: '.container'
