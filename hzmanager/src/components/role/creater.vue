@@ -1,10 +1,6 @@
 <template>
-<div class="newrole ui modal">
-  <i class="close icon"></i>
-  <h4 class="ui header">
-    <i class="settings icon"></i>
-    <div class="content">新增角色<div class="sub header">新增一个系统角色</div></div>
-  </h4>
+<div id="newRoleModal" class="ui small modal">
+  <div class="header">新增角色</div>
   <div class="content">
     <div id="newRoleForm" class="ui small form">
       <div class="two fields">
@@ -20,6 +16,7 @@
     </div>
   </div>
   <div class="actions">
+    <div class="ui negative button">放弃 </div>
     <div class="ui green right labeled icon button" @click="submit()"><i class="checkmark right icon"></i>新增角色</div>
   </div>
 </div>
@@ -29,15 +26,14 @@ import axios from 'axios';
 export default {
   data() {
     return {
-
     }
   },
   methods: {
     show() {
-      $('.newrole.ui.modal').modal('show');
+      $('#newRoleModal').modal('show');
     },
     hide(){
-      $('.newrole.ui.modal').modal('hide');
+      $('#newRoleModal').modal('hide');
       $('#newRoleForm').form('clear');
     },
     submit(){
@@ -54,7 +50,7 @@ export default {
     }
   },
   mounted: function() {
-    $('.newrole.ui.modal').modal({
+    $('#newRoleModal').modal({
       context: '#app',
       blurring: true,
       closable: false

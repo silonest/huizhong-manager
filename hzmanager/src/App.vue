@@ -172,9 +172,7 @@ export default {
   color: #2185d0!important;
 }
 
-
-
-
+    /*box-shadow: inset 0 5px 6px -3px rgba(0, 0, 0, 0.4);*/
 /*.red {
   background-color: #C43627!important;
   border-color: #C43627!important;

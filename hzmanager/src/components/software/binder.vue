@@ -142,6 +142,7 @@ export default {
     this.entity.form = $('.version.form');
     // 初始化一些必要的组件。
     this.init();
+    this.initNotes();
   }
 }
 </script>

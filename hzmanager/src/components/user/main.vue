@@ -13,15 +13,15 @@
       <user-container v-on:showEditUserMod="showEditUserMod" ref="container"></user-container>
     </div>
   </div>
-  <user-mod-new ref="newUserMod" v-on:refreshUsers="refreshUsers"></user-mod-new>
-  <user-mod-edit v-bind:user="selectedUser" v-on:refreshUsers="refreshUsers" ref="editUserMod"></user-mod-edit>
+  <user-creater ref="newUserMod" v-on:refreshUsers="refreshUsers"></user-creater>
+  <user-editer v-bind:user="selectedUser" v-on:refreshUsers="refreshUsers" ref="editUserMod"></user-editer>
 </div>
 </template>
 <script>
 import container from './container.vue';
 import controller from './controller.vue';
-import newUserMod from './newUserMod.vue';
-import editUserMod from './editUserMod.vue';
+import creater from './creater.vue';
+import editer from './editer.vue';
 export default {
   data() {
     return {
@@ -31,8 +31,8 @@ export default {
   components: {
     'user-controller': controller,
     'user-container': container,
-    'user-mod-new': newUserMod,
-    'user-mod-edit': editUserMod
+    'user-creater': creater,
+    'user-editer': editer
   },
   methods: {
     showNewUserMod() {

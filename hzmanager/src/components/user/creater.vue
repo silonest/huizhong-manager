@@ -1,5 +1,5 @@
 <template>
-<div class="newuser ui modal">
+<div id="newUserModal" class="ui modal">
   <div class="header">新增用户</div>
   <div class="content">
     <div id="newUserForm" class="ui small form">
@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     show() {
-      $('.newuser.ui.modal').modal('show');
+      $('#newUserModal').modal('show');
     },
     fillRoleSelect() {
       //给角色选择下拉菜单填充用户
@@ -74,7 +74,7 @@ export default {
         requestParam.userEmail = this.$refs.email.value;
         requestParam.userIntroduction = this.$refs.userProfile.value;
         axios.post('/resource/dynamic/manager/user', requestParam).then(function(response) {
-          $('.newuser.ui.modal').modal('hide');
+          $('#newUserModal').modal('hide');
           $('#newUserForm').form('clear');
           this.$emit('refreshUsers');
           if (response.data.status == 'SUCCESS') {
@@ -88,7 +88,7 @@ export default {
   },
   mounted: function() {
     this.fillRoleSelect();
-    $('.newuser.ui.modal').modal({
+    $('#newUserModal').modal({
       context: '#app',
       blurring: true,
       closable: false

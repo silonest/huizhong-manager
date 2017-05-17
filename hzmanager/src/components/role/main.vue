@@ -13,13 +13,13 @@
       <role-container v-on:selectRole="selectRole" ref="container"></role-container>
     </div>
   </div>
-  <role-mod-new v-on:refreshRoles="refreshRoles" ref="newRoleMod"></role-mod-new>
+  <role-creater v-on:refreshRoles="refreshRoles" ref="newRoleMod"></role-creater>
 </div>
 </template>
 <script>
 import controller from './controller.vue';
 import container from './container.vue';
-import newRoleMod from './newRoleMod.vue';
+import creater from './creater.vue';
 
 export default {
   data() {
@@ -41,7 +41,7 @@ export default {
   components: {
     'role-controller': controller,
     'role-container': container,
-    'role-mod-new': newRoleMod
+    'role-creater': creater
   }
 }
 </script>
