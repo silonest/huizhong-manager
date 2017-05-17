@@ -17,6 +17,7 @@
               <div class="ui label button" v-if="item.roleUseFlag == 0" @click="changeRoleStatus(item,'used',index)"><i class="play icon" data-content="启用"></i>启用</div>
               <div class="ui label button" v-else @click="changeRoleStatus(item,'unused',index)"><i class="pause icon" data-content="停用"></i>停用</div>
             </div>
+            <img class="ui image" style="width:45px;height:45x;" src="../../assets/imgs/role.svg">
             <div class="content">
               <div class="header">{{item.roleName}}</div>
               <div class="meta"><span>内置</span></div>
@@ -44,6 +45,7 @@
               <div class="ui label button" v-else @click="changeRoleStatus(item,'unused',index)"><i class="pause icon" data-content="停用"></i>停用</div>
               <div class="ui label button" @click="changeRoleStatus(item,'disable',index)"><i class="remove icon" data-content="删除"></i>删除</div>
             </div>
+            <img class="ui image" style="width:45px;height:45px;" src="../../assets/imgs/role.svg">
             <div class="content">
               <div class="header">{{item.roleName}}</div>
               <div class="meta"><span>自定义</span></div>
