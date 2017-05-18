@@ -28,7 +28,8 @@
 </a> -->
           <div class="ui relaxed horizontal list" v-if="item.role.roleName != null">
             <div class="item">
-              <img class="ui avatar image" style="width:30px;height:30px;" src="../../assets/imgs/role.svg">
+              <img class="ui avatar image" style="width:30px;height:30px;" src="../../assets/imgs/role.svg" v-if="item.role.roldLevel == 1">
+              <img class="ui avatar image" style="width:30px;height:30px;" src="../../assets/imgs/role_variable.svg" v-else />
               <div class="content">
                 <div class="header">{{item.role.roleName}}</div>{{item.role.roleIntroduction}}
               </div>

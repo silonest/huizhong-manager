@@ -45,7 +45,7 @@
               <div class="ui label button" v-else @click="changeRoleStatus(item,'unused',index)"><i class="pause icon" data-content="停用"></i>停用</div>
               <div class="ui label button" @click="changeRoleStatus(item,'disable',index)"><i class="remove icon" data-content="删除"></i>删除</div>
             </div>
-            <img class="ui image" style="width:45px;height:45px;" src="../../assets/imgs/role.svg">
+            <img class="ui image" style="width:45px;height:45px;" src="../../assets/imgs/role_variable.svg">
             <div class="content">
               <div class="header">{{item.roleName}}</div>
               <div class="meta"><span>自定义</span></div>
@@ -86,25 +86,25 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      fixedRoles: [],
-      variableRoles: []
+      fixedRoles: new Array(),
+      variableRoles: new Array()
     }
   },
   methods: {
     fillRoles: function() {
-      axios.get('/resource/dynamic/roles')
-        .then(response => {
-          let roles = response.data.content;
-          for(let index = 0;index < roles.length;index++){
-            if(roles[index].roleLevel == 1){
-              this.fixedRoles.push(roles[index]);
-            }else{
-              this.variabledRoles.push(roles[index]);
-            }
+      axios.get('/resource/dynamic/roles').then(response => {
+        let roles = response.data.content;
+        for (let index = 0; index < roles.length; index++) {
+          if (roles[index].roleLevel == 1) {
+            this.fixedRoles.push(roles[index]);
+          } else {
+            this.variableRoles.push(roles[index]);
           }
-        }).catch(function(error) {
-          alert(error);
-        });
+        }
+      }).catch(function(error) {
+        alert(1);
+        alert(error);
+      });
     },
     refresh: function() {
       this.fillRoles();
