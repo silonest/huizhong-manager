@@ -65,7 +65,7 @@
                 </div>
                 <div class="item">
                   <div class="ui transparent right icon input">
-                    <input type="text" placeholder="永久有效" style="width:100px;" :ref="'licence-period-' + item.licenceId">
+                    <input type="text" :placeholder="item.software.softwareType == 0 ? '使用时长':'升级台数'" style="width:100px;" :ref="'licence-period-' + item.licenceId">
                     <a @click="licenceApprove(item.licenceId,index)"><i class="check green outline icon"></i></a>
                   </div>
                 </div>
@@ -172,16 +172,20 @@ export default {
     },
     licenceApprove(licenceId, index) {
       let period = this.$refs['licence-period-' + licenceId][0].value;
-      axios.put('/resource/dynamic/licence/' + licenceId + '/inspect/approve', {
-          period: period == null || period == undefined || period == '' ? 0 : period
-        })
-        .then(response => {
+      if (this.str.isEmpty(period)) {
+        this.$refs['licence-period-' + licenceId][0].focus();
+      } else {
+        axios.put('/resource/dynamic/licence/' + licenceId + '/inspect/approve', {
+          period: period
+        }).then(response => {
           this.toast.success('已同意申请');
           this.licences.splice(index, 1);
+          this.$refs['licence-period-' + licenceId][0].value = '';
           this.waitingCount.licenceCount--;
         }).catch(function(error) {
           alert(error);
         });
+      }
     },
     licenceDecline(licenceId, index) {
       let inspectReason = this.$refs['licence-reason-' + licenceId][0].value;
