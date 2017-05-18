@@ -66,7 +66,7 @@
                 <div class="item">
                   <div class="ui transparent right icon input">
                     <input type="text" :placeholder="item.software.softwareType == 0 ? '使用时长':'升级台数'" style="width:100px;" :ref="'licence-period-' + item.licenceId">
-                    <a @click="licenceApprove(item.licenceId,index)"><i class="check green outline icon"></i></a>
+                    <a @click="licenceApprove(item.licenceId, item.software.softwareType == 0 ? 'debugger':'updater',index)"><i class="check green outline icon"></i></a>
                   </div>
                 </div>
               </div>
@@ -170,13 +170,15 @@ export default {
         });
       }
     },
-    licenceApprove(licenceId, index) {
+    licenceApprove(licenceId, licenceType, index) {
       let period = this.$refs['licence-period-' + licenceId][0].value;
       if (this.str.isEmpty(period)) {
         this.$refs['licence-period-' + licenceId][0].focus();
       } else {
         axios.put('/resource/dynamic/licence/' + licenceId + '/inspect/approve', {
-          period: period
+          licenceType: licenceType,
+          period: period,
+          userNumber: period,
         }).then(response => {
           this.toast.success('已同意申请');
           this.licences.splice(index, 1);
