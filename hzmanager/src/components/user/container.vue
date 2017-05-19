@@ -86,29 +86,28 @@ export default {
       this.$emit('showEditUserMod', user);
     },
     deleteUser(userId, index) {
-      axios.put('/resource/dynamic/manager/user/' + userId + '/used/disable')
-        .then(response => {
-          this.users.splice(index, 1);
-          this.toast.success('已删除');
-        }).catch(function(error) {
-          alert(error);
-        });
+      axios.put('/resource/dynamic/manager/user/' + userId + '/used/disable').then(response => {
+        this.users.splice(index, 1);
+        $('#deleteUserMod').modal('hide');
+        this.toast.success('已删除');
+      }).catch(function(error) {
+        alert(error);
+      });
     },
     changeUserUsedStatus(user, usedType) {
-      axios.put('/resource/dynamic/manager/user/' + user.userId + '/used/' + usedType)
-        .then(response => {
-          if (usedType == 'used') {
-            user.userUseFlag = 1;
-            this.toast.success('已启用');
-          } else if (usedType == 'unused') {
-            user.userUseFlag = 0;
-            this.toast.success('已停用');
-          } else {
-            this.toast.error('未执行');
-          }
-        }).catch(function(error) {
-          alert(error);
-        });
+      axios.put('/resource/dynamic/manager/user/' + user.userId + '/used/' + usedType).then(response => {
+        if (usedType == 'used') {
+          user.userUseFlag = 1;
+          this.toast.success('已启用');
+        } else if (usedType == 'unused') {
+          user.userUseFlag = 0;
+          this.toast.success('已停用');
+        } else {
+          this.toast.error('未执行');
+        }
+      }).catch(function(error) {
+        alert(error);
+      });
     },
     showDeleteUserMod(user, index) {
       this.deleteUserTemp.user = user;
