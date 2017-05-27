@@ -1,25 +1,27 @@
 <template>
-<div id="allVersionApp" class="ui basic segment" style="box-sizing: border-box ; position: relative;left:0px;margin:0px;padding:0px;height:100%;width:100%;">
-  <div class="ui basic segment" style="height:79px;width:100%;padding:0px;margin:0px;">
-    <div class="ui breadcrumb" style="margin-top:65px;margin-left:10px;">
-      <a class="section" href="#/"><span style="color:#24292e;"><i class="circular arrow left icon"></i></span></a>
+<div class="full compact">
+  <app-header></app-header>
+  <div class="ui basic segment" style="box-sizing: border-box ; position: relative;left:0px;margin:0px;padding:0px;height:100%;width:100%;">
+    <div class="ui basic segment" style="height:79px;width:100%;padding:0px;margin:0px;">
+      <div class="ui breadcrumb" style="margin-top:65px;margin-left:10px;">
+        <a class="section" href="#/software"><span style="color:#24292e;"><i class="circular arrow left icon"></i></span></a>
+      </div>
     </div>
-  </div>
-  <div class="ui basic segment" style="position:absolute;top:100px;bottom:0px;width:100%;margin: 0px 10px 0px 0px;padding:15px;">
-    <table class="ui yellow celled table">
-      <thead>
-        <tr>
-          <th>版本号</th>
-          <th>语言</th>
-          <th>版本名</th>
-          <th>版本简介</th>
-          <th>创建时间</th>
-          <th>最后更新时间</th>
-          <th>操作</th>
-        </tr>
-      </thead>
-      <tbody>
-        <template v-for="item in branchs">
+    <div class="ui basic segment" style="position:absolute;top:100px;bottom:0px;width:100%;margin: 0px 10px 0px 0px;padding:15px;">
+      <table class="ui yellow compact celled table">
+        <thead>
+          <tr>
+            <th>版本号</th>
+            <th>语言</th>
+            <th>版本名</th>
+            <th>版本简介</th>
+            <th>创建时间</th>
+            <th>最后更新时间</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <template v-for="item in branchs">
           <template v-if="item.notes.length == 1 || item.notes.length == 0">
             <tr>
               <td><div class="ui teal ribbon label" v-show="item.branchUseFlag == 1" >Now</div>{{item.branchVersion}}</td>
@@ -38,33 +40,34 @@
 </template>
           <template v-else>
 <template v-for="(note,index) in item.notes">
-              <tr v-if="index == 0">
-                <td :rowspan="item.notes.length"><div class="ui teal ribbon label" v-show="item.branchUseFlag == 1">Now</div>{{item.branchVersion}}</td>
-                <td><i class="flag" :class="note.branchLanguage | transferLanguageToFlag"></i>{{note.branchLanguage | transferLanguageToStr}}</td>
-                <td>{{note.branchName}}</td>
-                <td>{{note.branchNote}}</td>
-                <td>{{item.branchCtime}}</td>
-                <td>{{item.branchUtime}}</td>
-                <td>
-                  <div class="ui small basic icon buttons">
-                    <button class="ui button" @click="editVersion(note)"><i class="edit icon"></i></button>
-                    <a class="ui button" :href="'/resource/static/' + note.branchAddr" download><i class="download icon"></i></a>
-                  </div>
-                </td>
-              </tr>
-              <tr v-else>
-                <td><i class="flag" :class="note.branchLanguage | transferLanguageToFlag"></i>{{note.branchLanguage | transferLanguageToStr}}</td>
-                <td>{{note.branchName}}</td>
-                <td>{{note.branchNote}}</td>
-                <td>{{item.branchCtime}}</td>
-                <td>{{item.branchUtime}}</td>
-                <td>
-                  <div class="ui small basic icon buttons">
-                    <button class="ui button" @click="editVersion(note)"><i class="edit icon"></i></button>
-                    <a class="ui button" :href="'/resource/static/' + note.branchAddr" download><i class="download icon"></i></a>
-                  </div>
-                </td>
-              </tr>
+<tr v-if="index == 0">
+  <td :rowspan="item.notes.length">
+    <div class="ui teal ribbon label" v-show="item.branchUseFlag == 1">Now</div>{{item.branchVersion}}</td>
+  <td><i class="flag" :class="note.branchLanguage | transferLanguageToFlag"></i>{{note.branchLanguage | transferLanguageToStr}}</td>
+  <td>{{note.branchName}}</td>
+  <td>{{note.branchNote}}</td>
+  <td>{{item.branchCtime}}</td>
+  <td>{{item.branchUtime}}</td>
+  <td>
+    <div class="ui small basic icon buttons">
+      <button class="ui button" @click="editVersion(note)"><i class="edit icon"></i></button>
+      <a class="ui button" :href="'/resource/static/' + note.branchAddr" download><i class="download icon"></i></a>
+    </div>
+  </td>
+</tr>
+<tr v-else>
+  <td><i class="flag" :class="note.branchLanguage | transferLanguageToFlag"></i>{{note.branchLanguage | transferLanguageToStr}}</td>
+  <td>{{note.branchName}}</td>
+  <td>{{note.branchNote}}</td>
+  <td>{{item.branchCtime}}</td>
+  <td>{{item.branchUtime}}</td>
+  <td>
+    <div class="ui small basic icon buttons">
+      <button class="ui button" @click="editVersion(note)"><i class="edit icon"></i></button>
+      <a class="ui button" :href="'/resource/static/' + note.branchAddr" download><i class="download icon"></i></a>
+    </div>
+  </td>
+</tr>
 </template>
           </template>
         </template>
@@ -108,9 +111,11 @@
     </div>
   </div>
 </div>
+</div>
 </template>
 <script>
-import axios from 'axios'
+import axios from 'axios';
+import header from '../header/main.vue';
 
 export default {
   data() {
@@ -120,6 +125,9 @@ export default {
       fileName: '',
       branchApk: ''
     }
+  },
+  components: {
+    'app-header': header
   },
   methods: {
     choseApk() {
@@ -142,12 +150,11 @@ export default {
       $('.allversion.ui.modal').modal('show');
     },
     fillTable() {
-      axios.get('/resource/dynamic/software/' + this.$route.query.sid + '/all/version')
-        .then(response => {
-          this.branchs = response.data.content;
-        }).catch(function(error) {
-          alert(error);
-        });
+      axios.get('/resource/dynamic/software/' + this.$route.query.sid + '/all/version').then(response => {
+        this.branchs = response.data.content;
+      }).catch(function(error) {
+        this.toast.error('无法连接服务器');
+      });
     },
     submit() {
       axios.put('/resource/dynamic/branch/note/' + this.currentNote.noteId, {
@@ -160,7 +167,7 @@ export default {
         $('.allversion.ui.modal').modal('hide');
         this.fillTable();
       }).catch(function(error) {
-        alert(error);
+        this.toast.error('无法连接服务器');
       });
     }
   },

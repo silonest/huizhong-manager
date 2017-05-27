@@ -102,31 +102,29 @@ export default {
           }
         }
       }).catch(function(error) {
-        alert(1);
-        alert(error);
+        this.toast.error('无法连接服务器');
       });
     },
     refresh: function() {
       this.fillRoles();
     },
     changeRoleStatus: function(role, status, index) {
-      axios.put('/resource/dynamic/role/' + role.roleId + '/used/' + status)
-        .then(response => {
-          if (status == 'used') {
-            role.roleUseFlag = 1;
-            this.toast.success('已启用');
-          } else if (status == 'unused') {
-            role.roleUseFlag = 0;
-            this.toast.success('已停用');
-          } else if (status == 'disable') {
-            this.roles.splice(index, 1);
-            this.toast.success('已删除');
-          } else {
-            this.toast.error('不能执行操作');
-          }
-        }).catch(function(error) {
-          alert(error);
-        });
+      axios.put('/resource/dynamic/role/' + role.roleId + '/used/' + status).then(response => {
+        if (status == 'used') {
+          role.roleUseFlag = 1;
+          this.toast.success('已启用');
+        } else if (status == 'unused') {
+          role.roleUseFlag = 0;
+          this.toast.success('已停用');
+        } else if (status == 'disable') {
+          this.roles.splice(index, 1);
+          this.toast.success('已删除');
+        } else {
+          this.toast.error('不能执行操作');
+        }
+      }).catch(function(error) {
+        this.toast.error('无法连接服务器');
+      });
     },
     choseRole(role) {
       this.$emit('selectRole', role);

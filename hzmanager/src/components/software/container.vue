@@ -1,7 +1,7 @@
 <template>
 <div id="container" class="ui basic segment">
   <h4 class="ui horizontal header divider"><i class="bug icon"></i>调试软件</h4>
-  <div class="ui link eight cards" v-if="debugSoftwares.length != 0">
+  <div class="ui link eight cards" v-if="debugSoftwares != null && debugSoftwares.length != 0">
     <!--卡片-->
     <div class="yellow normal card" v-for="(item,index) in debugSoftwares">
       <div class="blurring image" v-if="item.softwareUseFlag == 0"><img class="image" :src="'/resource/static/' + item.softwareImg" v-on:click="choseSoftware()" />
@@ -96,7 +96,7 @@ export default {
         .then(response => {
           this.debugSoftwares = response.data.content;
         }).catch(function(error) {
-          alert(error);
+          this.toast.error('无法连接服务器');
         });
       axios.get('/resource/dynamic/manager/softwares/type/updater')
         .then(response => {
@@ -118,7 +118,7 @@ export default {
             }
           }
         }).catch(function(error) {
-          alert(error);
+          this.toast.error('无法连接服务器');
         });
       axios.get('/resource/dynamic/manager/softwares/type/updater')
         .then(response => {
@@ -130,7 +130,7 @@ export default {
             }
           }
         }).catch(function(error) {
-          alert(error);
+          this.toast.error('无法连接服务器');
         });
     },
     changeSoftwareStatus(software, currentStatus) {
@@ -144,7 +144,7 @@ export default {
             this.toast.success('已停用');
           }
         }).catch(function(error) {
-          alert(error);
+          this.toast.error('无法连接服务器');
         });
     },
     showDeleteSwChoseMod(software, index) {
@@ -168,7 +168,7 @@ export default {
           $('#deleteSwMod').modal('hide');
           this.toast.success('已删除');
         }).catch(function(error) {
-          alert(error);
+          this.toast.error('无法连接服务器');
         });
     },
     showDimmer() {

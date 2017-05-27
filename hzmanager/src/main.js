@@ -1,17 +1,19 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import Vue from 'vue'
-import App from './App.vue'
-import $ from 'jquery'
-import 'semantic/dist/semantic.min'
-import software from './components/software/main.vue'
-import role from './components/role/main.vue'
-import user from './components/user/main.vue'
-import branch from './components/software/branchs.vue'
-import inspector from './components/inspector/main.vue'
-import toaster from '../toast/dist/jquery.toast.min.js'
-import md5 from '../md5/jquery.md5.js'
-import VueRouter from 'vue-router'
+import Vue from 'vue';
+import App from './App.vue';
+import $ from 'jquery';
+import 'semantic/dist/semantic.min';
+import login from './components/login/main.vue';
+import software from './components/software/main.vue';
+import role from './components/role/main.vue';
+import user from './components/user/main.vue';
+import license from './components/license/main.vue';
+import branch from './components/software/branchs.vue';
+import inspector from './components/inspector/main.vue';
+import toaster from '../toast/dist/jquery.toast.min.js';
+import md5 from '../md5/jquery.md5.js';
+import VueRouter from 'vue-router';
 //import router from './router'
 Vue.config.productionTip = false
 Vue.use(VueRouter);
@@ -52,6 +54,15 @@ Vue.filter('isEmpty', function(e) {
   for (t in e)
     return !1;
   return !0
+});
+Vue.filter('inspectFlagStr', function(inspectFlag) {
+  if(inspectFlag == 1){
+    return '通过';
+  }else if(inspectFlag == 2){
+    return '拒绝';
+  }else{
+    return '待审';
+  }
 });
 Vue.prototype.toast = {
   success: function(content) {
@@ -130,9 +141,48 @@ Vue.prototype.str = {
     return str == '' || str == null || str == undefined ? true : false;
   }
 }
+
+Vue.prototype.token = {
+  getToken: function() {
+    let token = eval('(' + window.localStorage.getItem('huizhong_support_manager_token') + ')');
+    if (token == null || token == undefined) {
+      return null
+    } else {
+      let tokenCtime = new Date(token.ctime);
+      let ms = new Date().getTime() - tokenCtime.getTime();
+      let mm = ms / 6000;
+      if (mm >= 240) {
+        window.localStorage.removeItem('huizhong_support_manager_token');
+        return null;
+      } else {
+        return token.ciphertext;
+      }
+    }
+  },
+  setToken: function(text) {
+    let token = new Object();
+    token.ciphertext = text;
+    token.ctime = new Date();
+    window.localStorage.setItem('huizhong_support_manager_token', JSON.stringify(token));
+  },
+  clearToken: function() {
+    window.localStorage.removeItem('huizhong_support_manager_token');
+  },
+  isValid: function() {
+    if (Vue.prototype.token.getToken() == null) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+}
+
 //定义路径
 const routes = [{
     path: '/',
+    component: login
+  }, {
+    path: '/software',
     component: software
   },
   {
@@ -142,6 +192,10 @@ const routes = [{
   {
     path: '/user',
     component: user
+  },
+  {
+    path: '/license',
+    component: license
   },
   {
     path: '/branch',
@@ -158,6 +212,28 @@ const router = new VueRouter({
   history: true,
   routes
 })
+
+router.beforeEach(({
+    meta,
+    path
+  },
+  from,
+  next
+) => {
+  if (path == '/') {
+    Vue.prototype.token.clearToken();
+    next();
+  } else {
+    var isLogin = Vue.prototype.token.isValid();
+    if (!isLogin && path !== '/') {
+      return next({
+        path: '/'
+      })
+    } else {
+      next();
+    }
+  }
+});
 /* eslint-disable no-new */
 new Vue({
   router: router,

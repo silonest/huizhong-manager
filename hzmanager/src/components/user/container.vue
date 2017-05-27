@@ -47,6 +47,7 @@
           <button class="ui small label button" v-if="item.userUseFlag == 0" @click="changeUserUsedStatus(item,'used')"><i class="play icon"></i>启用</button>
           <button class="ui small label button" v-else @click="changeUserUsedStatus(item,'unused')"><i class="pause icon"></i>停用</button>
           <button class="ui small label button" @click="editUser(item)"><i class="edit icon"></i>编辑</button>
+          <button class="ui small label button" @click="showUserLicenseDetail(item)"><i class="key icon"></i>密钥</button>
           <button class="ui small label button" @click="showDeleteUserMod(item,index)"><i class="remove icon"></i>删除</button>
           <!--
           <button class="ui button"><i class="remove icon"></i></button> -->
@@ -91,7 +92,7 @@ export default {
         $('#deleteUserMod').modal('hide');
         this.toast.success('已删除');
       }).catch(function(error) {
-        alert(error);
+        this.toast.error('无法连接服务器');
       });
     },
     changeUserUsedStatus(user, usedType) {
@@ -106,7 +107,15 @@ export default {
           this.toast.error('未执行');
         }
       }).catch(function(error) {
-        alert(error);
+        this.toast.error('无法连接服务器');
+      });
+    },
+    showUserLicenseDetail(user) {
+      this.$router.push({
+        path: '/license',
+        query: {
+          uid: user.userId
+        }
       });
     },
     showDeleteUserMod(user, index) {
@@ -116,13 +125,11 @@ export default {
     },
     fillTable: function() {
       //给table填充用户
-      axios.get('/resource/dynamic/manager/users')
-        .then(response => {
-          this.users = response.data.content;
-        })
-        .catch(function(error) {
-          alert(error);
-        });
+      axios.get('/resource/dynamic/manager/users').then(response => {
+        this.users = response.data.content;
+      }).catch(function(error) {
+        this.toast.error('无法连接服务器');
+      });
     }
   },
   mounted: function() {

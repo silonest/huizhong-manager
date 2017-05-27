@@ -144,7 +144,7 @@ export default {
           branch.item = response.data.content.branch;
           this.branch = branch;
         }).catch(function(error) {
-          alert(error);
+          this.toast.error('无法连接服务器');
         });
     },
     fillRoles() {
@@ -152,7 +152,7 @@ export default {
         .then(response => {
           this.roles = this.objArrayHandler(response.data.content);
         }).catch(function(error) {
-          alert(error);
+          this.toast.error('无法连接服务器');
         });
     },
     changeCheckBox(role) {
@@ -163,7 +163,7 @@ export default {
             role.selected ? this.toast.success('绑定成功') : this.toast.success('解除绑定');
           }
         }).catch(function(error) {
-          alert(error);
+          this.toast.error('无法连接服务器');
         });
     },
     showNewSwMod() {

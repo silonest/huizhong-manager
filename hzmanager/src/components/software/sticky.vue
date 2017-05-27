@@ -124,7 +124,7 @@ export default {
           this.latestVersion = response.data.content.branchs;
         })
         .catch(function(error) {
-          alert(error);
+          this.toast.error('无法连接服务器');
         });
     });
   }

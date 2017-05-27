@@ -61,11 +61,10 @@ export default {
     },
     fillRoleSelect() {
       //给角色选择下拉菜单填充用户
-      axios.get('/resource/dynamic/roles')
-        .then(response => {
+      axios.get('/resource/dynamic/roles').then(response => {
           this.roles = response.data.content;
         }).catch(function(error) {
-          alert(error);
+          this.toast.error('无法连接服务器');
         });
     },
     submit() {
@@ -87,7 +86,7 @@ export default {
         this.toast.success('修改成功');
         this.$emit('refreshUsers');
       }).catch(function(error) {
-        alert(error);
+        this.toast.error('无法连接服务器');
       });
     }
   },

@@ -45,7 +45,7 @@ export default {
           this.$emit('refreshRoles');
           this.toast.success('新增成功');
         }.bind(this)).catch(function(error) {
-          alert(error);
+          this.toast.error('无法连接服务器');
         });
     }
   },

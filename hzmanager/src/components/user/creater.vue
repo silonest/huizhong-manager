@@ -58,7 +58,7 @@ export default {
         .then(response => {
           this.roles = response.data.content;
         }).catch(function(error) {
-          alert(error);
+          this.toast.error('无法连接服务器');
         });
     },
     submit() {

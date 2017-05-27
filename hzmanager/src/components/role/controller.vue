@@ -95,19 +95,17 @@ export default {
   props: ['selectedRole'],
   watch: {
     selectedRole: function() {
-      axios.get('/resource/dynamic/role/' + this.selectedRole.roleId + '/type/debugger/softwares')
-        .then(response => {
-          this.debuggers = this.objArrayHandler(response.data.content);
-        }).catch(function(error) {
-          alert(error);
-        });
+      axios.get('/resource/dynamic/role/' + this.selectedRole.roleId + '/type/debugger/softwares').then(response => {
+        this.debuggers = this.objArrayHandler(response.data.content);
+      }).catch(function(error) {
+        this.toast.error('无法连接服务器');
+      });
 
-      axios.get('/resource/dynamic/role/' + this.selectedRole.roleId + '/type/updater/softwares')
-        .then(response => {
-          this.updaters = this.objArrayHandler(response.data.content);
-        }).catch(function(error) {
-          alert(error);
-        });
+      axios.get('/resource/dynamic/role/' + this.selectedRole.roleId + '/type/updater/softwares').then(response => {
+        this.updaters = this.objArrayHandler(response.data.content);
+      }).catch(function(error) {
+        this.toast.error('无法连接服务器');
+      });
     }
   },
   methods: {
@@ -127,14 +125,13 @@ export default {
     },
     changeCheckBox(software) {
       let bindType = software.selected ? "bind" : "unbind";
-      axios.put('/resource/dynamic/role/' + this.selectedRole.roleId + '/software/' + software.softwareId + '/' + bindType)
-        .then(response => {
-          if (response.data.status == 'SUCCESS') {
-            software.selected ? this.toast.success('绑定成功') : this.toast.success('解除绑定');
-          }
-        }).catch(function(error) {
-          alert(error);
-        });
+      axios.put('/resource/dynamic/role/' + this.selectedRole.roleId + '/software/' + software.softwareId + '/' + bindType).then(response => {
+        if (response.data.status == 'SUCCESS') {
+          software.selected ? this.toast.success('绑定成功') : this.toast.success('解除绑定');
+        }
+      }).catch(function(error) {
+        this.toast.error('无法连接服务器');
+      });
     },
     showNewRoleMod() {
       this.$emit('showNewRoleMod');
